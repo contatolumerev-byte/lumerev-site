@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lume Rev — Arquitetura de Receita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #FBFBFA;
+    --bg-secondary: #F4F4F0;
+    --bg-tertiary: #EAEAE4;
+    --brand-dark: #1A1A1A;
+    --brand-muted: #60605E;
+    --gold: #C5A880;
+    --gold-light: #DFD0BC;
+    --border-soft: rgba(26, 26, 26, 0.08);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--brand-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    display: inline-block;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--brand-dark);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  section { position: relative; padding: 7rem 1.5rem; }
+  .container { max-width: 1024px; margin: 0 auto; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .hero-content { max-width: 800px; }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 4rem;
+  }
+  .logo-mark .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold);
+  }
+  .logo-mark span {
+    font-family: var(--font-body);
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+
+  h1.hero-title {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  
+  h1.hero-title em {
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--brand-muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .cta-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+  .btn {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  .btn-primary {
+    background: var(--brand-dark);
+    color: var(--bg-primary);
+  }
+  .btn-primary:hover { 
+    background: var(--gold);
+    color: var(--brand-dark);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--brand-dark);
+    border-bottom: 1px solid var(--brand-dark);
+    padding: 1rem 0;
+  }
+  .btn-secondary:hover { 
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* ===== PROBLEMA ===== */
+  .problema { background: var(--bg-secondary); }
+  .problema h2 {
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+    margin-bottom: 2rem;
+    max-width: 850px;
+  }
+  .problema p.intro { color: var(--brand-muted); max-width: 650px; margin-bottom: 3.5rem; font-size: 1.1rem; font-weight: 300; }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .pain-item {
+    border-top: 1px solid var(--brand-dark);
+    padding-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--brand-dark);
+  }
+  .pain-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+  }
+  .pain-item p {
+    color: var(--brand-muted);
+    font-size: 0.9rem;
+  }
+
+  .closer-line {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--brand-dark);
+  }
+
+  /* ===== AUTORIDADE ===== */
+  .autoridade { background: var(--bg-primary); }
+  .autoridade-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .autoridade h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 2rem; }
+  .autoridade p { color: var(--brand-muted); margin-bottom: 1.5rem; font-size: 1.05rem; font-weight: 300; }
+  .autoridade strong { color: var(--brand-dark); font-weight: 500; }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 3.5rem 0;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .stat { text-align: left; }
+  .stat .num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .stat .label {
+    font-size: 0.8rem;
+    color: var(--brand-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .disclaimer {
+    font-size: 0.85rem;
+    color: var(--brand-muted);
+    border-left: 1px solid var(--gold);
+    padding-left: 1rem;
+    margin-top: 2rem;
+    font-style: italic;
+  }
+
+  /* ===== ICP ===== */
+  .icp { background: var(--bg-secondary); }
+  .icp h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 1.5rem; }
+  .icp p.intro { color: var(--brand-muted); margin-bottom: 3rem; max-width: 650px; font-size: 1.1rem; font-weight: 300; }
+  
+  .signal-list { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 1.5rem; 
+  }
+  .signal {
+    padding: 2rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    font-size: 1rem;
+  }
+  .signal .check { color: var(--gold); font-weight: 700; display: block; margin-bottom: 0.5rem; }
+
+  /* ===== METODOLOGIA ===== */
+  .metodologia { background: var(--bg-primary); }
+  .metodologia h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 3.5rem; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
+  .step {
+    padding: 0;
+  }
+  .step .step-num {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+  .step h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+  .step p { color: var(--brand-muted); font-size: 0.95rem; font-weight: 300; }
+
+  /* ===== CASES ===== */
+  .cases { background: var(--bg-secondary); }
+  .cases h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 0.5rem; }
+  .cases p.intro { color: var(--brand-muted); margin-bottom: 3.5rem; font-size: 1.1rem; font-weight: 300; }
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+  .case-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+  }
+  .case-card:hover { border-color: var(--gold); }
+  .case-card .tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .case-card h3 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+  .case-card .field { margin-bottom: 1rem; }
+  .case-card .field-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--brand-muted);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .case-card .field-value { font-size: 0.95rem; color: var(--brand-dark); }
+  .case-card .impact { font-weight: 500; color: var(--brand-dark); border-left: 2px solid var(--gold); padding-left: 0.5rem; }
+
+  /* ===== CTA FINAL ===== */
+  .cta-final {
+    background: var(--brand-dark);
+    color: var(--bg-primary);
+    text-align: left;
+  }
+  .cta-final h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.5rem; color: var(--bg-primary); }
+  .cta-final p.sub { color: var(--bg-tertiary); margin-bottom: 3rem; max-width: 600px; font-size: 1.15rem; font-weight: 300; }
+  
+  .includes { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 1.5rem; 
+    margin-bottom: 4rem; 
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+  }
+  .includes div { font-size: 0.95rem; color: var(--bg-primary); font-weight: 300; }
+  .includes div::before { content: '— '; color: var(--gold); }
+
+  .cta-final .btn-primary {
+    background: var(--bg-primary);
+    color: var(--brand-dark);
+  }
+  .cta-final .btn-primary:hover {
+    background: var(--gold);
+    color: var(--brand-dark);
+  }
+
+  footer {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-soft);
+  }
+  footer p { color: var(--brand-muted); font-size: 0.85rem; }
+
+  @media (max-width: 640px) {
+    section { padding: 4.5rem 1.2rem; }
+    .stat-strip { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="logo-mark"><div class="dot"></div><span>Lume Rev</span></div>
+    <h1 class="hero-title">A estrutura invisível por trás do seu <em>próximo salto de faturamento</em>.</h1>
+    <p class="hero-sub">Desenhamos e operacionalizamos Arquitetura de Receita (RevOps) para alinhar processos, dados e ferramentas do Marketing ao Customer Success.</p>
+    <div class="cta-row">
+      <a href="#cta" class="btn btn-primary">Agendar Diagnóstico Estágio Sênior</a>
+      <a href="#metodologia" class="btn btn-secondary">Conheça a Metodologia</a>
+    </div>
+  </div>
+</section>
+
+<section class="problema">
+  <div class="container">
+    <span class="eyebrow">O Sintoma</span>
+    <h2>Operações comerciais robustas não falham por falta de esforço. Falham por desalinhamento.</h2>
+    <p class="intro">Quando o crescimento acontece rápido, os sistemas começam a acumular pontos cegos estruturais:</p>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <h3>Dados Fragmentados</h3>
+        <p>Sua equipe usa o CRM diariamente, mas os relatórios geram narrativas em vez de projeções reais e confiáveis.</p>
+      </div>
+      <div class="pain-item">
+        <h3>Handoffs Ruidosos</h3>
+        <p>A passagem de bastão entre Marketing, Pré-Vendas e Vendas possui atritos que geram perda de oportunidades valiosas.</p>
+      </div>
+      <div class="pain-item">
+        <h3>Esforço Sem Alavancagem</h3>
+        <p>Os times trabalham mais horas, mas a eficiência operacional não acompanha proporcionalmente a receita gerada.</p>
+      </div>
+    </div>
+    <p class="closer-line">O gargalo quase nunca é o talento do time. É o design da operação.</p>
+  </div>
+</section>
+
+<section class="autoridade">
+  <div class="container">
+    <span class="eyebrow">A Estrategista</span>
+    <div class="autoridade-grid">
+      <div>
+        <h2>Andressa Freire</h2>
+        <p>Iniciei minha trajetória na linha de frente das operações comerciais, desatando nós em CRMs, fluxos de cadência e taxas de conversão. Minha transição para a Arquitetura de Receita e RevOps foi guiada por uma obsessão clara: <strong>decodificar os padrões invisíveis que separam um funil estagnado de uma máquina previsível.</strong></p>
+        
+        <p>Em minhas análises profundas, já auditei pessoalmente mais de <strong>115 mil interações e dados de CRM</strong>. Em uma única operação, identifiquei gargalos estruturais em que metade dos pontos de contato operavam fora da janela real de decisão do cliente — um vazamento silencioso mensurado em <strong>R$ 200 mil por trimestre</strong> em capacidade desperdiçada.</p>
+
+        <div class="stat-strip">
+          <div class="stat"><span class="num">115k+</span><span class="label">Atividades de CRM Auditadas</span></div>
+          <div class="stat"><span class="num">75%</span><span class="label">Conversão em Reuniões Efetivas</span></div>
+          <div class="stat"><span class="num">100%</span><span class="label">Confiabilidade em Governança de Dados</span></div>
+        </div>
+
+        <p>Com experiência que se estende desde o redesenho de processos complexos no ecossistema de negócios até o desenvolvimento de arquiteturas de dados globais validadas em múltiplos idiomas, trago para a Lume Rev um método cirúrgico: substituir o sentimento por infraestrutura previsível e elegante.</p>
+
+        <p class="disclaimer">Em respeito aos acordos de confidencialidade com nossos clientes, alguns cases e dados corporativos são apresentados de forma estritamente confidencial ou anonimizada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="icp">
+  <div class="container">
+    <span class="eyebrow">Escopo de Atuação</span>
+    <h2>Para quem desenhamos esta infraestrutura</h2>
+    <p class="intro">Empresas maduras e em expansão com faturamento consolidado, cujos times comerciais cresceram e agora exigem uma governança profissional para sustentar os próximos trimestres.</p>
+    <div class="signal-list">
+      <div class="signal"><span class="check">✓</span> Operações que utilizam Hubspot ou plataformas equivalentes, mas sem processos integrados.</div>
+      <div class="signal"><span class="check">✓</span> Líderes que buscam clareza absoluta na origem do lead até a expansão em pós-venda.</div>
+      <div class="signal"><span class="check">✓</span> Empresas preparadas para eliminar o "feeling" e adotar inteligência de dados centralizada.</div>
+    </div>
+  </div>
+</section>
+
+<section class="metodologia" id="metodologia">
+  <div class="container">
+    <span class="eyebrow">O Método Lume</span>
+    <h2>A fundação do crescimento previsível</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01 / DIAGNÓSTICO</span>
+        <h3>Auditoria Avançada</h3>
+        <p>Imersão analítica nos dados atuais do seu pipeline. Mapeamos os pontos exatos de fricção e vazamento de margem financeira sem interferir no ritmo do time.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02 / ARQUITETURA</span>
+        <h3>Redesenho de Processos</h3>
+        <p>Modelagem da jornada ponta a ponta. Criamos acordos claros de passagem de bastão (SLAs) e cadências táticas testadas e validadas.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03 / GOVERNANÇA</span>
+        <h3>Operacionalização Ativa</h3>
+        <p>Implementação de playbooks de execução, automações estratégicas e dashboards de alta liderança. Sistemas vivos que o time utiliza de verdade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cases">
+  <div class="container">
+    <span class="eyebrow">Projetos Executados</span>
+    <h2>Casos de Arquitetura Aplicada</h2>
+    <p class="intro">Transformação de dados complexos em eficiência de ponta.</p>
+    <div class="case-grid">
+
+      <div class="case-card">
+        <span class="tag">Organização Internacional</span>
+        <h3>Portal de Indicadores de Escala Global</h3>
+        <div class="field"><span class="field-label">Cenário</span><span class="field-value">Múltiplas bases informacionais dispersas e sem consolidação executiva.</span></div>
+        <div class="field"><span class="field-label">Resultado</span><span class="field-value impact">Estruturação de dados robusta e governança unificada operando em 6 idiomas.</span></div>
+      </div>
+
+      <div class="case-card">
+        <span class="tag">Consultoria de Negócios</span>
+        <h3>Estruturação de Pipeline para Expansão</h3>
+        <div class="field"><span class="field-label">Cenário</span><span class="field-value">Necessidade de validação de modelo de go-to-market antes do investimento de escala.</span></div>
+        <div class="field"><span class="field-label">Resultado</span><span class="field-value impact">Processo comercial blindado e integrado do marketing ao pós-venda.</span></div>
+      </div>
+
+      <div class="case-card">
+        <span class="tag">Operação B2B Sênior</span>
+        <h3>Otimização de Ativos e Diagnóstico de RevOps</h3>
+        <div class="field"><span class="field-label">Cenário</span><span class="field-value">Baixa eficiência em funil comercial com volume denso de contatos diários.</span></div>
+        <div class="field"><span class="field-label">Resultado</span><span class="field-value impact">115k atividades auditadas com elevação imediata para 75% na taxa de reuniões efetivas.</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="cta">
+  <div class="container">
+    <span class="eyebrow" style="color: var(--gold);">Disponibilidade Limitada</span>
+    <h2>Sessão Estratégica: Alinhamento de Arquitetura de Receita</h2>
+    <p class="sub">Uma análise exclusiva voltada para fundadores e diretores operacionais que precisam de clareza absoluta e previsibilidade de receita para o próximo trimestre.</p>
+    <div class="includes">
+      <div>Mapeamento de Pontos Cegos do Funil</div>
+      <div>Análise de Vazamento de Pipeline</div>
+      <div>Avaliação de Maturidade de Dados</div>
+    </div>
+    <a href="mailto:contato@lumerev.com" class="btn btn-primary">Solicitar Sessão Exclusiva</a>
+  </div>
+</section>
+
+<footer>
+  <p>© Lume Rev — Arquitetura de Receita. Projetando operações de alto padrão e crescimento sustentável.</p>
+</footer>
+
+</body>
+</html>
