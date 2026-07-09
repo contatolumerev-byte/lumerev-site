@@ -1,68 +1,9 @@
-backend:
-  # Recomendado: se for hospedar no Netlify, mantenha git-gateway
-  name: git-gateway
-  repo: contatolumerev-byte/lumerev-site
-  branch: main
+# Netlify CMS removed
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+This file was cleared on 2026-07-09 per request to remove Netlify CMS and related configuration from the repository.
 
-site_url: "https://idyllic-cascaron-06784b.netlify.app"
+To restore the previous Netlify CMS configuration, revert the commits that modified this file (example commits that touched admin/config.yml on this repo today):
+- be74fa74b0cfcffa8be6e58f6ca4570a3d2d0076
+- 9cb1a32dc5bd4bf21292b8cd11e0e234c7676fa7
 
-collections:
-  - name: "settings"
-    label: "Site Settings"
-    files:
-      - file: "content/settings.yml"
-        label: "Home & Global Settings"
-        name: "home"
-        fields:
-          - { label: "Site Title", name: "site_title", widget: "string" }
-          - { label: "Meta Description", name: "meta_description", widget: "text" }
-          - { label: "OG Image", name: "og_image", widget: "image", required: false }
-          - { label: "Hero Title", name: "hero_title", widget: "string" }
-          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text" }
-          - { label: "Hero CTA Text", name: "hero_cta_text", widget: "string" }
-          - { label: "Hero CTA Link", name: "hero_cta_link", widget: "string" }
-      - file: "content/cases/list.yml"
-        label: "Cases List"
-        name: "cases_list"
-        fields:
-          - label: "Cases"
-            name: "cases"
-            widget: "list"
-            fields:
-              - { label: "Filename", name: "filename", widget: "string" }
-
-  - name: "about"
-    label: "About / Andressa"
-    files:
-      - file: "content/about.md"
-        label: "About Page"
-        name: "about_page"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Lead (short)", name: "lead", widget: "text" }
-          - { label: "Body", name: "body", widget: "markdown" }
-          - { label: "Photo", name: "photo", widget: "image", required: false, hint: "Substitua a foto de Andressa" }
-
-  - name: "cases"
-    label: "Cases"
-    folder: "content/cases"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Tag", name: "tag", widget: "string" }
-      - { label: "Scenario", name: "scenario", widget: "text" }
-      - { label: "Solution", name: "solution", widget: "markdown" }
-      - { label: "Results / Metric", name: "metric", widget: "string", required: false }
-      - { label: "Cover Image", name: "cover_image", widget: "image", required: false }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-
-media_library:
-  name: netlify
-  config:
-    allowed_types: ["image/png", "image/jpeg", "image/jpg", "image/webp"]
-
-publish_mode: editorial_workflow
+If you need the original config restored, tell me and I can open a PR or restore from commit 4ea213fcd46057c082491ee048dbb78037add727.
