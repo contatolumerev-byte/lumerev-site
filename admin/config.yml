@@ -1,9 +1,5 @@
-# Netlify CMS removed
+# Admin panel removed
 
-This file was cleared on 2026-07-09 per request to remove Netlify CMS and related configuration from the repository.
+The admin panel was intentionally removed to focus on static site improvements. There is no Netlify CMS configuration in this repository.
 
-To restore the previous Netlify CMS configuration, revert the commits that modified this file (example commits that touched admin/config.yml on this repo today):
-- be74fa74b0cfcffa8be6e58f6ca4570a3d2d0076
-- 9cb1a32dc5bd4bf21292b8cd11e0e234c7676fa7
-
-If you need the original config restored, tell me and I can open a PR or restore from commit 4ea213fcd46057c082491ee048dbb78037add727.
+If you need to restore an admin panel later, restore from an earlier commit or contact the repository maintainer.
