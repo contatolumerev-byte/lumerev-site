@@ -1,12 +1,13 @@
 backend:
   # Recomendado: se for hospedar no Netlify, mantenha git-gateway
   name: git-gateway
+  repo: contatolumerev-byte/lumerev-site
   branch: main
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
-site_url: "https://yourdomain.example"
+site_url: "https://idyllic-cascaron-06784b.netlify.app"
 
 collections:
   - name: "settings"
