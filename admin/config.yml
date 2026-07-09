@@ -1,5 +1,66 @@
-# Admin panel removed
+backend:
+  # Recomendado: se for hospedar no Netlify, mantenha git-gateway
+  name: git-gateway
+  branch: main
 
-The admin panel was intentionally removed to focus on static site improvements. There is no Netlify CMS configuration in this repository.
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
-If you need to restore an admin panel later, restore from an earlier commit or contact the repository maintainer.
+site_url: "https://yourdomain.example"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "content/settings.yml"
+        label: "Home & Global Settings"
+        name: "home"
+        fields:
+          - { label: "Site Title", name: "site_title", widget: "string" }
+          - { label: "Meta Description", name: "meta_description", widget: "text" }
+          - { label: "OG Image", name: "og_image", widget: "image", required: false }
+          - { label: "Hero Title", name: "hero_title", widget: "string" }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text" }
+          - { label: "Hero CTA Text", name: "hero_cta_text", widget: "string" }
+          - { label: "Hero CTA Link", name: "hero_cta_link", widget: "string" }
+      - file: "content/cases/list.yml"
+        label: "Cases List"
+        name: "cases_list"
+        fields:
+          - label: "Cases"
+            name: "cases"
+            widget: "list"
+            fields:
+              - { label: "Filename", name: "filename", widget: "string" }
+
+  - name: "about"
+    label: "About / Andressa"
+    files:
+      - file: "content/about.md"
+        label: "About Page"
+        name: "about_page"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Lead (short)", name: "lead", widget: "text" }
+          - { label: "Body", name: "body", widget: "markdown" }
+          - { label: "Photo", name: "photo", widget: "image", required: false, hint: "Substitua a foto de Andressa" }
+
+  - name: "cases"
+    label: "Cases"
+    folder: "content/cases"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Scenario", name: "scenario", widget: "text" }
+      - { label: "Solution", name: "solution", widget: "markdown" }
+      - { label: "Results / Metric", name: "metric", widget: "string", required: false }
+      - { label: "Cover Image", name: "cover_image", widget: "image", required: false }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+
+media_library:
+  config:
+    allowed_types: ["image/png", "image/jpeg", "image/jpg", "image/webp"]
+
+publish_mode: editorial_workflow
