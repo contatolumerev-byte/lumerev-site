@@ -1,356 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lume Rev — Arquitetura de Receita</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg-primary: #FBFBFA;
-    --bg-secondary: #F4F4F0;
-    --bg-tertiary: #EAEAE4;
-    --brand-dark: #1A1A1A;
-    --brand-muted: #60605E;
-    --gold: #C5A880;
-    --gold-light: #DFD0BC;
-    --border-soft: rgba(26, 26, 26, 0.08);
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lume Rev — Arquitetura de Receita</title>
+  <meta name="description" content="Lume Rev — consultoria boutique em RevOps, modelagem de dados e CRM para escalar com previsibilidade." />
+  <meta property="og:title" content="Lume Rev — Arquitetura de Receita" />
+  <meta property="og:description" content="Construindo a arquitetura de receita que sustenta o seu crescimento." />
+  <meta property="og:image" content="/assets/uploads/og-image.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1720; /* deep graphite */
+      --panel:#0b1220;
+      --muted:#9aa4ad;
+      --accent:#5fb4d9; /* refined cold blue */
+      --accent-2:#c9a76c; /* warm gold accent */
+      --glass: rgba(255,255,255,0.04);
+      --maxw:1100px;
+      --radius:12px;
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:var(--ff-body);
+      background:linear-gradient(180deg,#07101a 0%,var(--bg) 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:48px 20px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .mark{width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#07101a;font-family:var(--ff-display)}
+    .brand h1{font-size:1rem;margin:0;letter-spacing:0.06em}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;font-size:0.95rem}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* HERO */
+    .hero{padding:64px 0 72px;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
+    .hero-left{padding-right:8px}
+    .eyebrow{display:inline-block;color:var(--accent-2);font-weight:700;letter-spacing:0.12em;font-size:0.8rem;margin-bottom:18px}
+    h2.title{font-family:var(--ff-display);font-size:clamp(2rem,4.5vw,3.2rem);margin:0 0 18px;color:#f8fbff}
+    p.lead{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none}
+    .btn-primary{background:var(--accent);color:#06202a}
+    .btn-outline{border:1px solid rgba(255,255,255,0.06);color:var(--muted);background:transparent}
 
-  html { scroll-behavior: smooth; }
+    /* Card on right */
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:22px;border-radius:var(--radius)}
+    .hero-card h4{margin:0 0 8px;font-size:1.05rem}
+    .hero-card p{margin:0;color:var(--muted);font-size:0.95rem}
 
-  body {
-    font-family: var(--font-body);
-    background: var(--bg-primary);
-    color: var(--brand-dark);
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
+    /* Manifesto */
+    .manifesto{margin:56px 0;padding:28px;background:linear-gradient(90deg,rgba(95,180,217,0.04),rgba(201,167,108,0.03));border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .manifesto h3{font-family:var(--ff-display);margin-top:0}
+    .manifesto p{color:var(--muted)}
 
-  .eyebrow {
-    font-family: var(--font-body);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.7rem;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 1.2rem;
-    display: inline-block;
-  }
+    /* Cases */
+    .cases{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:42px 0}
+    .case-highlight{background:var(--panel);padding:26px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+    .metrics{display:flex;gap:18px;margin-top:18px}
+    .metric{flex:1;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:8px;text-align:center}
+    .metric strong{display:block;font-size:1.6rem;color:var(--accent)}
+    .metric span{display:block;color:var(--muted);margin-top:6px}
 
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    color: var(--brand-dark);
-    font-weight: 400;
-    line-height: 1.2;
-  }
+    /* About */
+    .about{display:flex;gap:24px;align-items:center;margin:42px 0}
+    .about img{width:220px;height:220px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    .about .bio h3{margin:0 0 8px}
+    .about .bio p{color:var(--muted)}
 
-  section { position: relative; padding: 7rem 1.5rem; }
-  .container { max-width: 1024px; margin: 0 auto; }
+    /* Contact */
+    .contact{padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:10px;border:1px solid rgba(255,255,255,0.03);margin:46px 0}
+    .contact .row{display:flex;gap:18px;flex-wrap:wrap}
+    .input, textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:#e6eef6}
+    textarea{min-height:120px}
 
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-soft);
-    text-align: center;
-  }
+    footer{padding:28px 0;color:var(--muted);font-size:0.9rem;text-align:center}
 
-  .hero-content { max-width: 800px; margin: 0 auto; }
-
-  .logo-mark {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 4rem;
-    justify-content: center;
-  }
-  .logo-mark .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--gold);
-  }
-  .logo-mark span {
-    font-family: var(--font-body);
-    letter-spacing: 0.15em;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: var(--brand-dark);
-    font-weight: 600;
-  }
-
-  h1.hero-title {
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    margin-bottom: 2rem;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-sub {
-    font-size: 1.15rem;
-    color: var(--brand-muted);
-    max-width: 600px;
-    margin: 0 auto 3rem auto;
-    font-weight: 300;
-  }
-
-  .cta-row { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
-
-  .btn {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-  }
-  .btn-primary {
-    background: var(--brand-dark);
-    color: var(--bg-primary);
-  }
-  .btn-primary:hover {
-    background: var(--gold);
-    color: var(--brand-dark);
-  }
-  .btn-secondary {
-    background: transparent;
-    color: var(--brand-dark);
-    border-bottom: 1px solid var(--brand-dark);
-    padding: 1rem 0;
-  }
-  .btn-secondary:hover {
-    color: var(--gold);
-    border-color: var(--gold);
-  }
-
-  /* rest of styles left unchanged... */
-  /* ===== PROBLEMA ===== */
-  .problema { background: var(--bg-secondary); }
-  .problema h2 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); margin-bottom: 2rem; max-width: 850px; }
-  .problema p.intro { color: var(--brand-muted); max-width: 650px; margin-bottom: 3.5rem; font-size: 1.1rem; font-weight: 300; }
-  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 3.5rem; }
-  .pain-item { border-top: 1px solid var(--brand-dark); padding-top: 1.5rem; font-size: 1rem; color: var(--brand-dark); }
-  .pain-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; font-family: var(--font-body); font-weight: 600; }
-  .pain-item p { color: var(--brand-muted); font-size: 0.9rem; }
-  .closer-line { font-family: var(--font-display); font-size: 1.4rem; font-style: italic; color: var(--brand-dark); }
-
-  /* ===== AUTORIDADE ===== */
-  .autoridade { background: var(--bg-primary); }
-  .autoridade-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: start; }
-  .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 3.5rem 0; padding: 2.5rem 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
-  .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-  .case-card { background: var(--bg-primary); border: 1px solid var(--border-soft); padding: 2.5rem; transition: all 0.3s ease; }
-  .case-card:hover { border-color: var(--gold); }
-  .case-card .tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); font-weight: 600; display: block; margin-bottom: 1rem; }
-
-  /* rest unchanged */
-  footer { padding: 3rem 1.5rem; text-align: center; background: var(--bg-primary); border-top: 1px solid var(--border-soft); }
-  footer p { color: var(--brand-muted); font-size: 0.85rem; }
-
-  @media (max-width: 640px) { section { padding: 4.5rem 1.2rem; } }
-</style>
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr;}
+      .cases{grid-template-columns:1fr}
+      .about{flex-direction:column}
+      .hero-card{order:2}
+    }
+  </style>
 </head>
 <body>
-
-<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
-
-<div class="wrapper">
-  <div class="floating-card">
-
-    <!-- HEADER -->
+  <div class="wrap">
     <header>
-      <a href="#" class="logo">Lume Rev</a>
-      <nav aria-label="Navegação principal">
-        <ul class="nav-links">
-          <li><a href="#solucoes">Soluções</a></li>
-          <li><a href="#sobre">A Estrategista</a></li>
-          <li><a href="#cases">Cases</a></li>
-          <li><a href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener noreferrer">Agendar</a></li>
-        </ul>
+      <div class="brand">
+        <div class="mark">LR</div>
+        <div>
+          <h1>Lume Rev</h1>
+          <div style="font-size:0.85rem;color:var(--muted)">Revenue Architecture</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#solucoes">Serviços</a>
+        <a href="#cases">Cases</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
       </nav>
     </header>
 
-    <main id="main-content">
-
-      <!-- HERO SECTION (dynamic) -->
-      <section class="hero">
-        <div class="hero-content">
-          <div class="logo-mark"><div class="dot"></div><span>Lume Rev</span></div>
-          <h1 id="hero-title" class="hero-title">Carregando título...</h1>
-          <p id="hero-sub" class="hero-sub">Carregando...</p>
-          <div class="cta-row">
-            <a id="hero-cta" class="btn btn-primary" href="#">Carregando</a>
-            <a href="#metodologia" class="btn btn-secondary">Conheça a Metodologia</a>
-          </div>
+    <section class="hero" aria-label="Hero">
+      <div class="hero-left">
+        <div class="eyebrow">Arquitetura de Receita</div>
+        <h2 class="title">Construindo a arquitetura de receita que sustenta o seu crescimento.</h2>
+        <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um posicionamento de mercado forte e sustentável para SaaS B2B Series A/B.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contato">Agende um Diagnóstico Estratégico</a>
+          <a class="btn btn-outline" href="#cases">Ver Cases</a>
         </div>
-      </section>
+      </div>
 
-      <!-- SERVIÇOS / SOLUÇÕES (static) -->
-      <section class="grid-services" id="solucoes">
-        <div class="service-card">
-          <h3>Arquitetura de Dados & CRM</h3>
-          <p>Estruturação técnica avançada para dar visibilidade absoluta ao seu pipeline de vendas.</p>
-          <ul>
-            <li>Modelagem de dados comerciais com SQL e BigQuery</li>
-            <li>Configuração sênior e fluxos automatizados no HubSpot</li>
-            <li>Métricas limpas, confiáveis e relatórios executivos (C-Level)</li>
-          </ul>
-        </div>
-
-        <div class="service-card">
-          <h3>Go-To-Market & Posicionamento Premium</h3>
-          <p>Alinhamento estratégico para atrair contas de alto valor e validar canais eficientes.</p>
-          <ul>
-            <li>Desenho de narrativa de mercado e percepção de alta sofisticação</li>
-            <li>Alinhamento de mensagens e pontos de contato da marca (Branding)</li>
-            <li>Otimização do ciclo de vendas focado em clientes com perfil ideal (ICP)</li>
-          </ul>
-        </div>
-
-        <div class="service-card">
-          <h3>Eficiência Operacional (RevOps)</h3>
-          <p>Integração completa dos times de Marketing, Vendas e Customer Success.</p>
-          <ul>
-            <li>Identificação rápida de gargalos operacionais e dinheiro sumindo</li>
-            <li>Desenho de playbooks, processos e estruturas de alta conversão</li>
-            <li>Treinamento analítico e workshops para times de pré-vendas</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ABOUT (dynamic) -->
-      <section class="about-section" id="sobre">
-        <div class="about-image-container">
-          <img id="about-photo" src="assets/uploads/andressa.jpg" alt="Foto de Andressa Freire — Estrategista" class="about-image">
-        </div>
-        <div class="about-text" id="about-content">
-          <span class="eyebrow">Liderança & Visão</span>
-          <h2>Carregando...</h2>
-          <p>Carregando conteúdo...</p>
-        </div>
-      </section>
-
-      <!-- CASES (dynamic) -->
-      <section class="cases-section" id="cases">
-        <h2>Histórias de Impacto</h2>
-        <p class="cases-subtitle">Transformando gargalos invisíveis em previsibilidade de receita e eficiência de dados.</p>
-        <div class="grid-cases" id="cases-grid">
-          <p>Carregando cases...</p>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- CLOSING (static) -->
-    <section class="closing-section" id="diagnostico">
-      <h2>Pronta para destravar o seu próximo nível de crescimento?</h2>
-      <p>Vamos olhar para trás dos panos da sua operação atual e desenhar o mapa de soluções exato para os seus gargalos mais urgentes.</p>
-      <a href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background-color: var(--gold);">
-        Escolher Horário na Agenda
-      </a>
-
-      <footer>
-        <div>© 2026 Lume Rev. Todos os direitos reservados.</div>
-        <div>
-          <a href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener noreferrer">Suporte</a>
-          <a href="#">Privacidade</a>
-        </div>
-      </footer>
+      <aside class="hero-card" aria-hidden="false">
+        <h4>O que fazemos</h4>
+        <p>Transformamos dados, tecnologia e processos em previsibilidade de receita. Arquitetura de dados, modelagem de indicadores e playbooks comerciais que tornam decisões escaláveis e repetíveis.</p>
+        <p style="margin-top:12px;color:var(--muted);font-size:0.95rem">Entrega personalizada — foco em execução e resultado.</p>
+      </aside>
     </section>
 
+    <section class="manifesto" id="manifesto">
+      <h3>Manifesto</h3>
+      <p><strong>Estratégia sem execução é apenas ruído.</strong> Na Lume Rev, não acreditamos em receitas prontas de prateleira. Nosso modelo de atuação é exclusivo, personalizado e próximo, focado na realidade de cada negócio. Nós eliminamos os gargalos operacionais e de dados entre marketing, vendas e pós-vendas, implementando a infraestrutura e a mentalidade que times de alta performance precisam para performar. Afinal, uma operação eficiente só funciona se houver uma cultura forte por trás. Mais do que organizar fluxos, entregamos a previsibilidade de receita que a sua empresa precisa para sustentar um posicionamento correto, competitivo e de alta autoridade no mercado de tecnologia — porque a forma como a sua operação roda por dentro determina a confiança e a relevância que a sua marca projeta por fora.</p>
+    </section>
+
+    <section class="cases" id="cases">
+      <div class="case-highlight">
+        <h3>Engenharia de Processos e Tração Comercial</h3>
+        <p style="color:var(--muted)">Desalinhamento entre marketing e vendas em operação SaaS, gerando vazamento de leads e baixa conversão por atrito cultural no CRM. Redesenho completo da jornada comercial e playbooks de transição focados na redução de fricção para as equipes de front.</p>
+        <div class="metrics">
+          <div class="metric">
+            <strong>75%</strong>
+            <span>Show-rate histórico</span>
+          </div>
+          <div class="metric">
+            <strong>+333%</strong>
+            <span>Alavancagem de eficiência comercial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-highlight">
+        <h3>Inteligência Comercial e Visibilidade Global</h3>
+        <p style="color:var(--muted)">Operação de tecnologia com forte autoridade de mercado, mas com dados descentralizados e tomada de decisão lenta por falta de governança de receita. Criação e modelagem de um portal estratégico de indicadores globais integrado à stack de dados e à rotina da liderança.</p>
+        <p style="margin-top:12px;color:var(--muted)">Mais de 115 mil atividades processadas e auditadas, gerando visibilidade macro em tempo real e previsibilidade imediata para os líderes da rodada.</p>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <img src="/assets/uploads/andressa.jpg" alt="Andressa Freire — Revenue Architect" />
+      <div class="bio">
+        <h3>Andressa Freire — Revenue Architect</h3>
+        <p style="color:var(--muted)">Olá, sou Andressa Freire. Minha trajetória foi construída diretamente nas trincheiras das operações comerciais. Vivenciando o dia a dia do 'front', percebi exatamente onde os processos quebravam, onde as informações se perdiam e como a falta de estrutura minava o potencial de excelentes times. A partir dessa dor prática, passei a liderar movimentos de mudança, redesenho e reestruturação de operações nas empresas por onde passei. Hoje, atuando como Revenue Architect na Lume Rev, combino essa bagagem prática de negócios com a precisão da inteligência de dados. Atualmente, lidero projetos de alto impacto, como a modelagem de indicadores de forma global, traduzindo dados e operações complexas em estratégias enxutas, previsíveis e de alta performance para o mercado corporativo.</p>
+        <p style="margin-top:12px"><a class="btn btn-outline" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Fale diretamente com a especialista</a></p>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <h3>Vamos conversar</h3>
+      <p style="color:var(--muted)">Agende um diagnóstico estratégico ou deixe uma mensagem rápida — retornamos com um plano objetivo de ações.</p>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agende um Diagnóstico Estratégico</a>
+        <a class="btn btn-outline" href="mailto:contato@lumerev.com">Enviar e-mail</a>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Lume Rev — Todos os direitos reservados · <a href="/privacy" style="color:var(--muted);text-decoration:underline">Política de Privacidade</a>
+    </footer>
   </div>
-</div>
-
-<!-- Minimal client-side loader: parses YAML and Markdown and injects into page -->
-<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
-<script>
-  (function(){
-    const md = window.markdownit({html:true,linkify:true});
-
-    function safeFetchText(path){
-      return fetch(path).then(r=>{ if(!r.ok) throw new Error(path + ' not found'); return r.text(); }).catch(()=>null);
-    }
-
-    // Load settings.yml
-    safeFetchText('/content/settings.yml').then(text=>{
-      if(!text) return;
-      try{
-        const settings = jsyaml.load(text);
-        if(settings.hero_title) document.getElementById('hero-title').textContent = settings.hero_title;
-        if(settings.hero_subtitle) document.getElementById('hero-sub').textContent = settings.hero_subtitle;
-        if(settings.hero_cta_text){
-          const cta = document.getElementById('hero-cta');
-          cta.textContent = settings.hero_cta_text;
-        }
-        if(settings.hero_cta_link){
-          const cta = document.getElementById('hero-cta');
-          cta.href = settings.hero_cta_link;
-        }
-        if(settings.og_image){
-          // update meta tag if present or create
-          let og = document.querySelector('meta[property="og:image"]');
-          if(!og){ og = document.createElement('meta'); og.setAttribute('property','og:image'); document.head.appendChild(og); }
-          og.setAttribute('content', settings.og_image);
-        }
-      }catch(e){ console.warn('settings parse error', e); }
-    });
-
-    // Load about.md
-    safeFetchText('/content/about.md').then(text=>{
-      if(!text) return;
-      const html = md.render(text);
-      const el = document.getElementById('about-content');
-      if(el) el.innerHTML = html;
-    });
-
-    // Load cases list
-    safeFetchText('/content/cases/list.yml').then(text=>{
-      if(!text) return;
-      try{
-        const list = jsyaml.load(text);
-        const grid = document.getElementById('cases-grid');
-        grid.innerHTML = '';
-        if(Array.isArray(list)){
-          // if list is plain array of filenames
-          list.forEach(item=>{
-            const filename = (typeof item === 'string') ? item : item.filename;
-            if(!filename) return;
-            safeFetchText('/content/cases/' + filename).then(mdtext=>{
-              if(!mdtext) return;
-              const card = document.createElement('div');
-              card.className = 'case-card';
-              card.innerHTML = md.render(mdtext);
-              grid.appendChild(card);
-            });
-          });
-        } else if(Array.isArray(list.cases)){
-          list.cases.forEach(entry=>{
-            const filename = entry.filename;
-            if(!filename) return;
-            safeFetchText('/content/cases/' + filename).then(mdtext=>{
-              if(!mdtext) return;
-              const card = document.createElement('div');
-              card.className = 'case-card';
-              card.innerHTML = md.render(mdtext);
-              grid.appendChild(card);
-            });
-          });
-        }
-      }catch(e){ console.warn('cases list parse error', e); }
-    });
-
-  })();
-</script>
 </body>
 </html>
