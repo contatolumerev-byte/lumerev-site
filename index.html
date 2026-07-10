@@ -7,88 +7,106 @@
   <meta name="description" content="Lume Rev — consultoria boutique em RevOps, modelagem de dados e CRM para escalar com previsibilidade." />
   <meta property="og:title" content="Lume Rev — Arquitetura de Receita" />
   <meta property="og:description" content="Construindo a arquitetura de receita que sustenta o seu crescimento." />
-  <meta property="og:image" content="/assets/uploads/og-image.jpg" />
+  <meta property="og:image" content="assets/uploads/og-image.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* Boutique Premium palette: graphite + sand / minimal monochrome */
-      --bg:#0e0f10; /* deep graphite */
-      --panel:#151617; /* slightly lighter panel */
-      --muted:#bfb6a8; /* sand / warm neutral for copy */
-      --accent:#d6c9b0; /* subtle sand accent */
-      --accent-2:#9f9b97; /* muted grayscale accent */
-      --glass: rgba(255,255,255,0.03);
-      --maxw:1100px;
-      --radius:12px;
+      --bg: #fdfcfb; /* Premium Off-White / Alabaster background */
+      --panel: #f5f4f0; /* Soft sand tone for sections */
+      --text-main: #1c2024; /* Deep graphite for elegant readability */
+      --muted: #5c646c; /* Editorial body text */
+      --accent: #1c2024; /* Sharp contrast for premium buttons */
+      --accent-hover: #333942;
+      --gold: #b39258; /* Subtle corporate gold for details */
+      --maxw: 1100px;
+      --radius: 6px; /* Sharper edges for a more modern boutique look */
       --ff-display: 'Playfair Display', Georgia, serif;
-      --ff-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      --text:#eef1f2;
+      --ff-body: 'Inter', system-ui, -apple-system, sans-serif;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
+    html,body{height:100%;margin:0;scroll-behavior: smooth;}
     body{
       font-family:var(--ff-body);
-      background:linear-gradient(180deg,var(--bg) 0%, #070808 100%);
-      color:var(--text);
+      background-color: var(--bg);
+      color:var(--text-main);
       -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
+      line-height:1.6;
     }
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:48px 20px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand .mark{width:48px;height:48px;border-radius:8px;background:var(--panel);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-    .brand .mark img{width:100%;height:100%;object-fit:cover;display:block}
-    .brand h1{font-size:1rem;margin:0;letter-spacing:0.06em}
-    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;font-size:0.95rem}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:40px 20px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+    
+    /* BRAND & LOGO FIX */
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-logo-container {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #121212; /* Neutralizes the dark look inside the logo */
+    }
+    .brand img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: luminosity; /* Blends the grid pattern into a professional asset */
+    } 
+    .brand h1{font-family:var(--ff-display);font-size:1.4rem;margin:0;letter-spacing:-0.01em;color:var(--text-main);font-weight:700}
+    
+    nav a{color:var(--muted);text-decoration:none;margin-left:24px;font-weight:500;font-size:0.95rem;transition:color 0.2s}
+    nav a:hover{color:var(--text-main)}
 
     /* HERO */
-    .hero{padding:64px 0 72px;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
-    .hero-left{padding-right:8px}
-    .eyebrow{display:inline-block;color:var(--accent);font-weight:700;letter-spacing:0.12em;font-size:0.8rem;margin-bottom:18px}
-    h2.title{font-family:var(--ff-display);font-size:clamp(2rem,4.5vw,3.2rem);margin:0 0 12px;color:var(--text)}
-    p.lead{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none}
-    .btn-primary{background:var(--accent);color:#081014}
-    .btn-outline{border:1px solid rgba(255,255,255,0.06);color:var(--muted);background:transparent}
+    .hero{padding:90px 0 70px;display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center}
+    .hero-left{padding-right:10px}
+    .eyebrow{display:inline-block;color:var(--gold);font-weight:600;letter-spacing:0.12em;font-size:0.85rem;margin-bottom:16px;text-transform:uppercase}
+    h2.title{font-family:var(--ff-display);font-size:clamp(2.4rem,5vw,3.8rem);margin:0 0 24px;color:var(--text-main);line-height:1.15;font-weight:600}
+    p.lead{color:var(--muted);font-size:1.15rem;margin-bottom:36px;font-weight:400;max-width:640px}
+    
+    /* CTA ROWS */
+    .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.2s;font-size:0.95rem}
+    .btn-primary{background:var(--accent);color:#ffffff}
+    .btn-primary:hover{background:var(--accent-hover);transform: translateY(-1px)}
+    .btn-outline{border:1px solid rgba(0,0,0,0.15);color:var(--text-main);background:transparent}
+    .btn-outline:hover{background:rgba(0,0,0,0.03);border-color:var(--text-main)}
 
-    /* Card on right */
-    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.03);padding:22px;border-radius:var(--radius)}
-    .hero-card h4{margin:0 0 8px;font-size:1.05rem}
-    .hero-card p{margin:0;color:var(--muted);font-size:0.95rem}
+    /* Sidebar Card on Right */
+    .hero-card{background:var(--panel);border:1px solid rgba(0,0,0,0.04);padding:32px;border-radius:var(--radius)}
+    .hero-card h4{margin:0 0 12px;font-size:1.1rem;font-family:var(--ff-display);color:var(--text-main);font-weight:600}
+    .hero-card p{margin:0;color:var(--muted);font-size:0.95rem;line-height:1.65}
 
-    /* Manifesto */
-    .manifesto{margin:56px 0;padding:28px;background:transparent;border-radius:10px}
-    .manifesto p{color:var(--muted);margin:0}
+    /* Manifesto - No raw header title */
+    .manifesto{margin:60px 0;padding:44px;background:var(--panel);border-radius:var(--radius);border-left:3px solid var(--gold)}
+    .manifesto p{color:var(--text-main);font-size:1.15rem;line-height:1.75;margin:0;font-weight:400}
 
     /* Cases */
-    .cases{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:42px 0}
-    .case-highlight{background:var(--panel);padding:26px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    .metrics{display:flex;gap:18px;margin-top:18px}
-    .metric{flex:1;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);padding:18px;border-radius:8px;text-align:center}
-    .metric strong{display:block;font-size:1.6rem;color:var(--accent)}
-    .metric span{display:block;color:var(--muted);margin-top:6px}
+    .cases{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:64px 0}
+    .case-highlight{background:var(--panel);padding:40px;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;justify-content:space-between}
+    .case-highlight h3{font-family:var(--ff-display);font-size:1.4rem;margin-top:0;color:var(--text-main);font-weight:600}
+    
+    .metrics{display:flex;gap:16px;margin-top:auto;padding-top:28px}
+    .metric{flex:1;background:var(--bg);border:1px solid rgba(0,0,0,0.04);padding:20px;border-radius:var(--radius);text-align:center}
+    .metric strong{display:block;font-size:2.2rem;color:var(--text-main);font-family:var(--ff-display);font-weight:600}
+    .metric span{display:block;color:var(--muted);margin-top:6px;font-size:0.85rem;font-weight:500}
 
-    /* About */
-    .about{display:flex;gap:24px;align-items:center;margin:42px 0}
-    .about img{width:220px;height:220px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    .about .bio h3{margin:0 0 8px}
-    .about .bio p{color:var(--muted)}
+    /* About Section */
+    .about{display:flex;gap:56px;align-items:center;margin:90px 0;padding-top:50px;border-top:1px solid rgba(0,0,0,0.06)}
+    .about img{width:240px;height:240px;object-fit:cover;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.05)}
+    .about .bio h3{font-family:var(--ff-display);font-size:1.7rem;margin:0 0 16px;color:var(--text-main)}
+    .about .bio p{color:var(--muted);font-size:1rem;margin-bottom:16px}
 
-    /* Contact */
-    .contact{padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:10px;border:1px solid rgba(255,255,255,0.03);margin:46px 0}
-    .contact .row{display:flex;gap:18px;flex-wrap:wrap}
-    .input, textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--text)}
-    textarea{min-height:120px}
+    /* Contact Block */
+    .contact{padding:56px;background:var(--panel);border-radius:var(--radius);border:1px solid rgba(0,0,0,0.02);margin:80px 0;text-align:center}
+    .contact h3{font-family:var(--ff-display);font-size:1.9rem;margin-top:0;color:var(--text-main)}
 
-    footer{padding:28px 0;color:var(--muted);font-size:0.9rem;text-align:center}
+    footer{padding:40px 0;color:var(--muted);font-size:0.85rem;text-align:center;border-top:1px solid rgba(0,0,0,0.06)}
 
     @media (max-width:920px){
-      .hero{grid-template-columns:1fr;}
+      .hero{grid-template-columns:1fr;padding:40px 0;gap:32px}
       .cases{grid-template-columns:1fr}
-      .about{flex-direction:column}
+      .about{flex-direction:column;text-align:center;gap:32px}
       .hero-card{order:2}
     }
   </style>
@@ -97,14 +115,17 @@
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="mark"><img src="/assets/uploads/og-image.jpg" alt="Lume Rev logo" /></div>
+        <div class="brand-logo-container">
+          <!-- O CSS foi ajustado para mascarar o fundo quadriculado cinza do arquivo falso PNG -->
+          <img src="assets/uploads/logo.png" alt="Lume Rev Logo" onerror="this.parentElement.style.display='none';">
+        </div>
         <div>
           <h1>Lume Rev</h1>
-          <div style="font-size:0.85rem;color:var(--muted)">Revenue Architecture</div>
+          <div style="font-size:0.75rem;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-top:2px">Revenue Architecture</div>
         </div>
       </div>
       <nav>
-        <a href="#solucoes">Serviços</a>
+        <a href="#manifesto">Manifesto</a>
         <a href="#cases">Cases</a>
         <a href="#sobre">Sobre</a>
         <a href="#contato">Contato</a>
@@ -113,23 +134,23 @@
 
     <section class="hero" aria-label="Hero">
       <div class="hero-left">
-        <div class="eyebrow">Arquitetura de Receita</div>
+        <div class="eyebrow">Revenue Architecture</div>
         <h2 class="title">Construindo a arquitetura de receita que sustenta o seu crescimento.</h2>
-        <!-- CTA moved directly under title as requested -->
-        <div style="margin:12px 0;">
-          <a class="btn btn-primary" href="#contato">Agende um Diagnóstico Estratégico</a>
+        <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um posicionamento de mercado forte e de alta autoridade para SaaS B2B.</p>
+        <div class="cta-row">
+          <!-- BOTÃO PRINCIPAL NO TOPO COM DESIGN BOUTIQUE ESCURO -->
+          <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agende um Diagnóstico Estratégico</a>
+          <a class="btn btn-outline" href="#cases">Ver Cases de Impacto</a>
         </div>
-        <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um posicionamento de mercado forte e sustentável para SaaS B2B Series A/B.</p>
       </div>
 
-      <aside class="hero-card" aria-hidden="false">
-        <h4>O que fazemos</h4>
-        <p>Transformamos dados, tecnologia e processos em previsibilidade de receita. Arquitetura de dados, modelagem de indicadores e playbooks comerciais que tornam decisões escaláveis e repetíveis.</p>
-        <p style="margin-top:12px;color:var(--muted);font-size:0.95rem">Entrega personalizada — foco em execução e resultado.</p>
+      <aside class="hero-card">
+        <h4>Abordagem Boutique</h4>
+        <p>Transformamos dados, tecnologia e processos em previsibilidade de receita. Desenhamos estruturas comerciais customizadas para que CEOs e diretores recuperem a visibilidade absoluta do negócio e eliminem os vazamentos invisíveis de receita.</p>
       </aside>
     </section>
 
-    <section class="manifesto">
+    <section class="manifesto" id="manifesto">
       <p><strong>Estratégia sem execução é apenas ruído.</strong> Na Lume Rev, não acreditamos em receitas prontas de prateleira. Nosso modelo de atuação é exclusivo, personalizado e próximo, focado na realidade de cada negócio. Nós eliminamos os gargalos operacionais e de dados entre marketing, vendas e pós-vendas, implementando a infraestrutura e a mentalidade que times de alta performance precisam para performar. Afinal, uma operação eficiente só funciona se houver uma cultura forte por trás. Mais do que organizar fluxos, entregamos a previsibilidade de receita que a sua empresa precisa para sustentar um posicionamento correto, competitivo e de alta autoridade no mercado de tecnologia — porque a forma como a sua operação roda por dentro determina a confiança e a relevância que a sua marca projeta por fora.</p>
     </section>
 
@@ -144,7 +165,7 @@
           </div>
           <div class="metric">
             <strong>+333%</strong>
-            <span>Alavancagem de eficiência comercial</span>
+            <span>Eficiência comercial interna</span>
           </div>
         </div>
       </div>
@@ -152,25 +173,35 @@
       <div class="case-highlight">
         <h3>Inteligência Comercial e Visibilidade Global</h3>
         <p style="color:var(--muted)">Operação de tecnologia com forte autoridade de mercado, mas com dados descentralizados e tomada de decisão lenta por falta de governança de receita. Criação e modelagem de um portal estratégico de indicadores globais integrado à stack de dados e à rotina da liderança.</p>
-        <p style="margin-top:12px;color:var(--muted)">Mais de 115 mil atividades processadas e auditadas, gerando visibilidade macro em tempo real e previsibilidade imediata para os líderes da rodada.</p>
+        <div class="metrics">
+          <div class="metric">
+            <strong>115k+</strong>
+            <span>Atividades auditadas</span>
+          </div>
+          <div class="metric">
+            <strong>Real-time</strong>
+            <span>Visibilidade de receita</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="about" id="sobre">
-      <img src="/assets/uploads/andressa.jpg" alt="Andressa Freire — Revenue Architect" />
+      <img src="assets/uploads/andressa.jpg" alt="Andressa Freire — Revenue Architect" onerror="this.style.display='none';" />
       <div class="bio">
-        <h3>Andressa Freire — Revenue Architect</h3>
-        <p style="color:var(--muted)">Olá, sou Andressa Freire. Minha trajetória foi construída diretamente nas trincheiras das operações comerciais. Vivenciando o dia a dia do 'front', percebi exatamente onde os processos quebravam, onde as informações se perdiam e como a falta de estrutura minava o potencial de excelentes times. A partir dessa dor prática, passei a liderar movimentos de mudança, redesenho e reestruturação de operações nas empresas por onde passei. Hoje, atuando como Revenue Architect na Lume Rev, combino essa bagagem prática de negócios com a precisão da inteligência de dados. Atualmente, lidero projetos de alto impacto, como a modelagem de indicadores de forma global, traduzindo dados e operações complexas em estratégias enxutas, previsíveis e de alta performance para o mercado corporativo.</p>
-        <p style="margin-top:12px"><a class="btn btn-outline" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Fale diretamente com a especialista</a></p>
+        <h3>Quem está por trás da estratégia</h3>
+        <p>Olá, sou <strong>Andressa Freire</strong>. Minha trajetória foi construída diretamente nas trincheiras das operações comerciais. Vivenciando o dia a dia do 'front', percebi exatamente onde os processos quebravam, onde as informações se perdiam e como a falta de estrutura minava o potencial de excelentes times.</p>
+        <p>A partir dessa dor prática, passei a liderar movimentos de mudança, redesenho e reestruturação de operações nas empresas por onde passei. Hoje, atuando como <strong>Revenue Architect</strong> na Lume Rev, combino essa bagagem prática de negócios com a precisão da inteligência de dados, traduzindo dados e operações complexas em estratégias enxutas, previsíveis e de alta performance.</p>
+        <p style="margin-top:24px"><a class="btn btn-outline" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Fale diretamente com a especialista</a></p>
       </div>
     </section>
 
     <section class="contact" id="contato">
-      <h3>Vamos conversar</h3>
-      <p style="color:var(--muted)">Agende um diagnóstico estratégico ou deixe uma mensagem rápida — retornamos com um plano objetivo de ações.</p>
-      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
-        <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agende um Diagnóstico Estratégico</a>
-        <a class="btn btn-outline" href="mailto:contato@lumerev.com">Enviar e-mail</a>
+      <h3>Pronto para eliminar os gargalos da sua operação?</h3>
+      <p style="color:var(--muted); max-width:600px; margin: 0 auto 32px;">Agende um diagnóstico estratégico inicial de 30 minutos para mapearmos os vazamentos invisíveis de receita da sua empresa.</p>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
+        <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agendar Diagnóstico no HubSpot</a>
+        <a class="btn btn-outline" href="mailto:contato@lumerev.com">Enviar e-mail direto</a>
       </div>
     </section>
 
