@@ -12,23 +12,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0f1720; /* deep graphite */
-      --panel:#0b1220;
-      --muted:#9aa4ad;
-      --accent:#5fb4d9; /* refined cold blue */
-      --accent-2:#c9a76c; /* warm gold accent */
-      --glass: rgba(255,255,255,0.04);
+      /* Boutique Premium palette: graphite + sand / minimal monochrome */
+      --bg:#0e0f10; /* deep graphite */
+      --panel:#151617; /* slightly lighter panel */
+      --muted:#bfb6a8; /* sand / warm neutral for copy */
+      --accent:#d6c9b0; /* subtle sand accent */
+      --accent-2:#9f9b97; /* muted grayscale accent */
+      --glass: rgba(255,255,255,0.03);
       --maxw:1100px;
       --radius:12px;
       --ff-display: 'Playfair Display', Georgia, serif;
       --ff-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --text:#eef1f2;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
     body{
       font-family:var(--ff-body);
-      background:linear-gradient(180deg,#07101a 0%,var(--bg) 100%);
-      color:#e6eef6;
+      background:linear-gradient(180deg,var(--bg) 0%, #070808 100%);
+      color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.5;
@@ -36,49 +38,49 @@
     .wrap{max-width:var(--maxw);margin:0 auto;padding:48px 20px}
     header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand .mark{width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#07101a;font-family:var(--ff-display)}
+    .brand .mark{width:48px;height:48px;border-radius:8px;background:var(--panel);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    .brand .mark img{width:100%;height:100%;object-fit:cover;display:block}
     .brand h1{font-size:1rem;margin:0;letter-spacing:0.06em}
     nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;font-size:0.95rem}
 
     /* HERO */
     .hero{padding:64px 0 72px;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
     .hero-left{padding-right:8px}
-    .eyebrow{display:inline-block;color:var(--accent-2);font-weight:700;letter-spacing:0.12em;font-size:0.8rem;margin-bottom:18px}
-    h2.title{font-family:var(--ff-display);font-size:clamp(2rem,4.5vw,3.2rem);margin:0 0 18px;color:#f8fbff}
+    .eyebrow{display:inline-block;color:var(--accent);font-weight:700;letter-spacing:0.12em;font-size:0.8rem;margin-bottom:18px}
+    h2.title{font-family:var(--ff-display);font-size:clamp(2rem,4.5vw,3.2rem);margin:0 0 12px;color:var(--text)}
     p.lead{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
     .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none}
-    .btn-primary{background:var(--accent);color:#06202a}
+    .btn-primary{background:var(--accent);color:#081014}
     .btn-outline{border:1px solid rgba(255,255,255,0.06);color:var(--muted);background:transparent}
 
     /* Card on right */
-    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:22px;border-radius:var(--radius)}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.03);padding:22px;border-radius:var(--radius)}
     .hero-card h4{margin:0 0 8px;font-size:1.05rem}
     .hero-card p{margin:0;color:var(--muted);font-size:0.95rem}
 
     /* Manifesto */
-    .manifesto{margin:56px 0;padding:28px;background:linear-gradient(90deg,rgba(95,180,217,0.04),rgba(201,167,108,0.03));border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    .manifesto h3{font-family:var(--ff-display);margin-top:0}
-    .manifesto p{color:var(--muted)}
+    .manifesto{margin:56px 0;padding:28px;background:transparent;border-radius:10px}
+    .manifesto p{color:var(--muted);margin:0}
 
     /* Cases */
     .cases{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:42px 0}
-    .case-highlight{background:var(--panel);padding:26px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+    .case-highlight{background:var(--panel);padding:26px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
     .metrics{display:flex;gap:18px;margin-top:18px}
-    .metric{flex:1;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:8px;text-align:center}
+    .metric{flex:1;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);padding:18px;border-radius:8px;text-align:center}
     .metric strong{display:block;font-size:1.6rem;color:var(--accent)}
     .metric span{display:block;color:var(--muted);margin-top:6px}
 
     /* About */
     .about{display:flex;gap:24px;align-items:center;margin:42px 0}
-    .about img{width:220px;height:220px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    .about img{width:220px;height:220px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
     .about .bio h3{margin:0 0 8px}
     .about .bio p{color:var(--muted)}
 
     /* Contact */
     .contact{padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:10px;border:1px solid rgba(255,255,255,0.03);margin:46px 0}
     .contact .row{display:flex;gap:18px;flex-wrap:wrap}
-    .input, textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:#e6eef6}
+    .input, textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--text)}
     textarea{min-height:120px}
 
     footer{padding:28px 0;color:var(--muted);font-size:0.9rem;text-align:center}
@@ -95,7 +97,7 @@
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="mark">LR</div>
+        <div class="mark"><img src="/assets/uploads/og-image.jpg" alt="Lume Rev logo" /></div>
         <div>
           <h1>Lume Rev</h1>
           <div style="font-size:0.85rem;color:var(--muted)">Revenue Architecture</div>
@@ -113,11 +115,11 @@
       <div class="hero-left">
         <div class="eyebrow">Arquitetura de Receita</div>
         <h2 class="title">Construindo a arquitetura de receita que sustenta o seu crescimento.</h2>
-        <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um posicionamento de mercado forte e sustentável para SaaS B2B Series A/B.</p>
-        <div class="cta-row">
+        <!-- CTA moved directly under title as requested -->
+        <div style="margin:12px 0;">
           <a class="btn btn-primary" href="#contato">Agende um Diagnóstico Estratégico</a>
-          <a class="btn btn-outline" href="#cases">Ver Cases</a>
         </div>
+        <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um posicionamento de mercado forte e sustentável para SaaS B2B Series A/B.</p>
       </div>
 
       <aside class="hero-card" aria-hidden="false">
@@ -127,8 +129,7 @@
       </aside>
     </section>
 
-    <section class="manifesto" id="manifesto">
-      <h3>Manifesto</h3>
+    <section class="manifesto">
       <p><strong>Estratégia sem execução é apenas ruído.</strong> Na Lume Rev, não acreditamos em receitas prontas de prateleira. Nosso modelo de atuação é exclusivo, personalizado e próximo, focado na realidade de cada negócio. Nós eliminamos os gargalos operacionais e de dados entre marketing, vendas e pós-vendas, implementando a infraestrutura e a mentalidade que times de alta performance precisam para performar. Afinal, uma operação eficiente só funciona se houver uma cultura forte por trás. Mais do que organizar fluxos, entregamos a previsibilidade de receita que a sua empresa precisa para sustentar um posicionamento correto, competitivo e de alta autoridade no mercado de tecnologia — porque a forma como a sua operação roda por dentro determina a confiança e a relevância que a sua marca projeta por fora.</p>
     </section>
 
