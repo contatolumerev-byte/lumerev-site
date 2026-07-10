@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Lume Rev — Arquitetura de Receita</title>
-  <meta name="description" content="Lume Rev — consultoria boutique em RevOps, modelagem de dados e CRM para escalar com previsibilidade." />
+  <meta name="description" content="Lume Rev — Consultoria em Revenue Architecture para estruturação comercial e governança de dados." />
   <meta property="og:title" content="Lume Rev — Arquitetura de Receita" />
   <meta property="og:description" content="Construindo a arquitetura de receita que sustenta o seu crescimento." />
   <meta property="og:image" content="assets/uploads/og-image.jpg" />
@@ -12,15 +12,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #fdfcfb; /* Premium Off-White / Alabaster background */
-      --panel: #f5f4f0; /* Soft sand tone for sections */
-      --text-main: #1c2024; /* Deep graphite for elegant readability */
-      --muted: #5c646c; /* Editorial body text */
-      --accent: #1c2024; /* Sharp contrast for premium buttons */
-      --accent-hover: #333942;
-      --gold: #b39258; /* Subtle corporate gold for details */
+      --bg: #fdfcfb; /* Off-White Boutique */
+      --panel: #f4f6f9; /* Fundo suave para blocos de destaque */
+      --text-main: #111e2e; /* Azul Escuro/Grafite para alta legibilidade */
+      --brand-blue: #0b2545; /* Azul Oficial Lume Rev */
+      --muted: #4a5568; /* Cinza Editorial para parágrafos */
+      --accent-gold: #b39258; /* Dourado de Detalhes */
       --maxw: 1100px;
-      --radius: 6px; /* Sharper edges for a more modern boutique look */
+      --radius: 8px;
       --ff-display: 'Playfair Display', Georgia, serif;
       --ff-body: 'Inter', system-ui, -apple-system, sans-serif;
     }
@@ -34,79 +33,116 @@
       line-height:1.6;
     }
     .wrap{max-width:var(--maxw);margin:0 auto;padding:40px 20px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(0,0,0,0.06)}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(11,37,69,0.08)}
     
-    /* BRAND & LOGO FIX */
     .brand{display:flex;align-items:center;gap:14px}
     .brand-logo-container {
-      position: relative;
       width: 44px;
       height: 44px;
-      overflow: hidden;
       border-radius: var(--radius);
-      background: #121212; /* Neutralizes the dark look inside the logo */
+      background: var(--brand-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
     .brand img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      mix-blend-mode: luminosity; /* Blends the grid pattern into a professional asset */
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
     } 
-    .brand h1{font-family:var(--ff-display);font-size:1.4rem;margin:0;letter-spacing:-0.01em;color:var(--text-main);font-weight:700}
+    .brand h1{font-family:var(--ff-display);font-size:1.4rem;margin:0;letter-spacing:-0.01em;color:var(--brand-blue);font-weight:700}
     
     nav a{color:var(--muted);text-decoration:none;margin-left:24px;font-weight:500;font-size:0.95rem;transition:color 0.2s}
-    nav a:hover{color:var(--text-main)}
+    nav a:hover{color:var(--brand-blue)}
 
     /* HERO */
-    .hero{padding:90px 0 70px;display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center}
+    .hero{padding:80px 0 60px;display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center}
     .hero-left{padding-right:10px}
-    .eyebrow{display:inline-block;color:var(--gold);font-weight:600;letter-spacing:0.12em;font-size:0.85rem;margin-bottom:16px;text-transform:uppercase}
-    h2.title{font-family:var(--ff-display);font-size:clamp(2.4rem,5vw,3.8rem);margin:0 0 24px;color:var(--text-main);line-height:1.15;font-weight:600}
+    .eyebrow{display:inline-block;color:var(--accent-gold);font-weight:600;letter-spacing:0.12em;font-size:0.85rem;margin-bottom:16px;text-transform:uppercase}
+    h2.title{font-family:var(--ff-display);font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 24px;color:var(--brand-blue);line-height:1.2;font-weight:600}
     p.lead{color:var(--muted);font-size:1.15rem;margin-bottom:36px;font-weight:400;max-width:640px}
     
-    /* CTA ROWS */
     .cta-row{display:flex;gap:16px;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.2s;font-size:0.95rem}
-    .btn-primary{background:var(--accent);color:#ffffff}
-    .btn-primary:hover{background:var(--accent-hover);transform: translateY(-1px)}
-    .btn-outline{border:1px solid rgba(0,0,0,0.15);color:var(--text-main);background:transparent}
-    .btn-outline:hover{background:rgba(0,0,0,0.03);border-color:var(--text-main)}
+    .btn-primary{background:var(--brand-blue);color:#ffffff}
+    .btn-primary:hover{background:#15355e;transform: translateY(-1px)}
+    .btn-outline{border:1px solid var(--brand-blue);color:var(--brand-blue);background:transparent}
+    .btn-outline:hover{background:rgba(11,37,69,0.04)}
 
-    /* Sidebar Card on Right */
-    .hero-card{background:var(--panel);border:1px solid rgba(0,0,0,0.04);padding:32px;border-radius:var(--radius)}
-    .hero-card h4{margin:0 0 12px;font-size:1.1rem;font-family:var(--ff-display);color:var(--text-main);font-weight:600}
+    .hero-card{background:var(--panel);border:1px solid rgba(11,37,69,0.05);padding:32px;border-radius:var(--radius)}
+    .hero-card h4{margin:0 0 12px;font-size:1.1rem;font-family:var(--ff-display);color:var(--brand-blue);font-weight:600}
     .hero-card p{margin:0;color:var(--muted);font-size:0.95rem;line-height:1.65}
 
-    /* Manifesto - No raw header title */
-    .manifesto{margin:60px 0;padding:44px;background:var(--panel);border-radius:var(--radius);border-left:3px solid var(--gold)}
-    .manifesto p{color:var(--text-main);font-size:1.15rem;line-height:1.75;margin:0;font-weight:400}
+    /* GARGALOS */
+    .gargalos-section{padding:60px 0;border-top:1px solid rgba(11,37,69,0.08)}
+    .gargalos-section h2{font-family:var(--ff-display);font-size:2.2rem;color:var(--brand-blue);margin:0 0 12px;text-align:center}
+    .gargalos-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+    .gargalo-item{background:var(--panel);padding:32px;border-radius:var(--radius);border:1px solid rgba(11,37,69,0.03)}
+    .gargalo-item h3{margin:0 0 12px;font-size:1.2rem;color:var(--brand-blue);font-family:var(--ff-display);font-weight:600}
+    .gargalo-item p{margin:0;color:var(--muted);font-size:0.95rem}
 
-    /* Cases */
-    .cases{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:64px 0}
-    .case-highlight{background:var(--panel);padding:40px;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;justify-content:space-between}
-    .case-highlight h3{font-family:var(--ff-display);font-size:1.4rem;margin-top:0;color:var(--text-main);font-weight:600}
+    /* MANIFESTO MASSIFICADO */
+    .manifesto-epic{margin:80px 0;padding:60px 40px;background:var(--panel);border-radius:var(--radius);border-left:5px solid var(--accent-gold);text-align:left}
+    .manifesto-epic blockquote{margin:0 0 24px;padding:0;border:none}
+    .manifesto-epic blockquote h2{font-family:var(--ff-display);font-size:clamp(2rem,4vw,2.8rem);color:var(--brand-blue);margin:0;line-height:1.2;font-style:italic;font-weight:600}
+    .manifesto-epic p{color:var(--text-main);font-size:1.15rem;line-height:1.75;margin:0;font-weight:400}
+
+    /* CASES */
+    .cases-section {padding: 40px 0;}
+    .cases-section h2 {font-family: var(--ff-display); font-size: 2.2rem; color: var(--brand-blue); margin-bottom: 8px; text-align:center}
+    .cases-section .subtitle{color:var(--accent-gold); text-align:center; font-weight:600; text-transform:uppercase; font-size:0.9rem; letter-spacing:0.1em; margin-bottom:48px}
+    .cases{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:32px}
+    .case-full {grid-column: span 2; background: var(--panel); padding: 40px; border-radius: var(--radius); border: 1px solid rgba(11,37,69,0.05);}
+    .case-highlight{background:var(--panel);padding:40px;border-radius:var(--radius);border:1px solid rgba(11,37,69,0.05);display:flex;flex-direction:column;justify-content:space-between}
+    .case-highlight h3, .case-full h3{font-family:var(--ff-display);font-size:1.45rem;margin-top:0;color:var(--brand-blue);font-weight:600;line-height:1.3}
     
     .metrics{display:flex;gap:16px;margin-top:auto;padding-top:28px}
-    .metric{flex:1;background:var(--bg);border:1px solid rgba(0,0,0,0.04);padding:20px;border-radius:var(--radius);text-align:center}
-    .metric strong{display:block;font-size:2.2rem;color:var(--text-main);font-family:var(--ff-display);font-weight:600}
+    .metric{flex:1;background:var(--bg);border:1px solid rgba(11,37,69,0.05);padding:20px;border-radius:var(--radius);text-align:center}
+    .metric strong{display:block;font-size:2.2rem;color:var(--brand-blue);font-family:var(--ff-display);font-weight:600}
     .metric span{display:block;color:var(--muted);margin-top:6px;font-size:0.85rem;font-weight:500}
 
-    /* About Section */
-    .about{display:flex;gap:56px;align-items:center;margin:90px 0;padding-top:50px;border-top:1px solid rgba(0,0,0,0.06)}
-    .about img{width:240px;height:240px;object-fit:cover;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.05)}
-    .about .bio h3{font-family:var(--ff-display);font-size:1.7rem;margin:0 0 16px;color:var(--text-main)}
-    .about .bio p{color:var(--muted);font-size:1rem;margin-bottom:16px}
+    /* INSTITUCIONAL & SOBRE A ESPECIALISTA */
+    .about{margin:80px 0;padding-top:60px;border-top:1px solid rgba(11,37,69,0.08)}
+    .about-header {text-align: center; margin-bottom: 56px;}
+    .about-header h2 {font-family: var(--ff-display); font-size: 2.4rem; color: var(--brand-blue); margin: 0 0 8px;}
+    .about-header p {color: var(--accent-gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem;}
+    
+    .about-section-block {margin-bottom: 60px;}
+    .about-section-block h3 {font-family: var(--ff-display); font-size: 1.6rem; color: var(--brand-blue); border-bottom: 2px solid rgba(11,37,69,0.05); padding-bottom: 12px; margin-bottom: 24px;}
+    .about-content-text p {color:var(--muted); font-size:1.05rem; margin-bottom:20px; text-align: justify; line-height:1.7}
 
-    /* Contact Block */
-    .contact{padding:56px;background:var(--panel);border-radius:var(--radius);border:1px solid rgba(0,0,0,0.02);margin:80px 0;text-align:center}
-    .contact h3{font-family:var(--ff-display);font-size:1.9rem;margin-top:0;color:var(--text-main)}
+    .about-grid-expert {display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start; margin-top: 40px;}
+    .about-profile {text-align: center;}
+    .about-profile img{width:100%; max-width: 240px; height:auto; object-fit:cover; border-radius:var(--radius); border:3px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 16px;}
+    .about-profile h4 {margin: 0; font-size: 1.2rem; color: var(--brand-blue); font-weight: 600;}
+    .about-profile span {font-size: 0.9rem; color: var(--accent-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;}
 
-    footer{padding:40px 0;color:var(--muted);font-size:0.85rem;text-align:center;border-top:1px solid rgba(0,0,0,0.06)}
+    /* CONTACT BLOCK */
+    .contact{padding:56px;background:var(--panel);border-radius:var(--radius);border:1px solid rgba(11,37,69,0.05);margin:80px 0;text-align:center}
+    .contact h3{font-family:var(--ff-display);font-size:2rem;margin-top:0;color:var(--brand-blue);font-weight:600}
+
+    /* FOOTER */
+    footer{background: var(--brand-blue); color: #ffffff; padding: 60px 0 30px;}
+    .footer-grid {display: grid; grid-template-columns: 1fr 2fr; gap: 40px; max-width: var(--maxw); margin: 0 auto; padding: 0 20px;}
+    .footer-brand h4 {font-family: var(--ff-display); font-size: 1.5rem; margin: 0 0 8px; color: #ffffff;}
+    .footer-brand p {color: #a3b8cc; font-size: 0.9rem; margin: 0 0 16px;}
+    .footer-links {display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;}
+    .footer-col h5 {color: var(--accent-gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 16px;}
+    .footer-col ul {list-style: none; padding: 0; margin: 0;}
+    .footer-col ul li {margin-bottom: 10px;}
+    .footer-col ul li a {color: #cbd5e1; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;}
+    .footer-col ul li a:hover {color: #ffffff;}
+    .footer-bottom {max-width: var(--maxw); margin: 40px auto 0; padding: 24px 20px 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85rem; color: #a3b8cc;}
 
     @media (max-width:920px){
       .hero{grid-template-columns:1fr;padding:40px 0;gap:32px}
+      .gargalos-grid{grid-template-columns:1fr}
       .cases{grid-template-columns:1fr}
-      .about{flex-direction:column;text-align:center;gap:32px}
+      .case-full {grid-column: span 1;}
+      .about-grid-expert{grid-template-columns:1fr; gap: 32px;}
+      .footer-grid {grid-template-columns: 1fr; gap: 32px;}
+      .footer-links {grid-template-columns: 1fr 1fr;}
       .hero-card{order:2}
     }
   </style>
@@ -116,18 +152,17 @@
     <header>
       <div class="brand">
         <div class="brand-logo-container">
-          <!-- O CSS foi ajustado para mascarar o fundo quadriculado cinza do arquivo falso PNG -->
-          <img src="assets/uploads/logo.png" alt="Lume Rev Logo" onerror="this.parentElement.style.display='none';">
+          <img src="assets/uploads/logo.png" alt="Lume Rev Logo" onerror="this.src='https://via.placeholder.com/44/0b2545/ffffff?text=LR';">
         </div>
         <div>
           <h1>Lume Rev</h1>
-          <div style="font-size:0.75rem;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-top:2px">Revenue Architecture</div>
+          <div style="font-size:0.75rem;color:var(--accent-gold);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;margin-top:2px">Revenue Architecture</div>
         </div>
       </div>
       <nav>
-        <a href="#manifesto">Manifesto</a>
-        <a href="#cases">Cases</a>
         <a href="#sobre">Sobre</a>
+        <a href="#gargalos">Gargalos</a>
+        <a href="#cases">Cases</a>
         <a href="#contato">Contato</a>
       </nav>
     </header>
@@ -138,76 +173,178 @@
         <h2 class="title">Construindo a arquitetura de receita que sustenta o seu crescimento.</h2>
         <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um posicionamento de mercado forte e de alta autoridade para SaaS B2B.</p>
         <div class="cta-row">
-          <!-- BOTÃO PRINCIPAL NO TOPO COM DESIGN BOUTIQUE ESCURO -->
           <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agende um Diagnóstico Estratégico</a>
           <a class="btn btn-outline" href="#cases">Ver Cases de Impacto</a>
         </div>
       </div>
 
       <aside class="hero-card">
-        <h4>Abordagem Boutique</h4>
-        <p>Transformamos dados, tecnologia e processos em previsibilidade de receita. Desenhamos estruturas comerciais customizadas para que CEOs e diretores recuperem a visibilidade absoluta do negócio e eliminem os vazamentos invisíveis de receita.</p>
+        <h4>Estrutura Customizada</h4>
+        <p>Atuação focada em execução e engenharia de processos. Desenhamos arquiteturas comerciais sob medida para que CEOs e diretores recuperem a visibilidade absoluta da operação e eliminem de vez os vazamentos invisíveis de receita.</p>
       </aside>
     </section>
 
-    <section class="manifesto" id="manifesto">
-      <p><strong>Estratégia sem execução é apenas ruído.</strong> Na Lume Rev, não acreditamos em receitas prontas de prateleira. Nosso modelo de atuação é exclusivo, personalizado e próximo, focado na realidade de cada negócio. Nós eliminamos os gargalos operacionais e de dados entre marketing, vendas e pós-vendas, implementando a infraestrutura e a mentalidade que times de alta performance precisam para performar. Afinal, uma operação eficiente só funciona se houver uma cultura forte por trás. Mais do que organizar fluxos, entregamos a previsibilidade de receita que a sua empresa precisa para sustentar um posicionamento correto, competitivo e de alta autoridade no mercado de tecnologia — porque a forma como a sua operação roda por dentro determina a confiança e a relevância que a sua marca projeta por fora.</p>
-    </section>
-
-    <section class="cases" id="cases">
-      <div class="case-highlight">
-        <h3>Engenharia de Processos e Tração Comercial</h3>
-        <p style="color:var(--muted)">Desalinhamento entre marketing e vendas em operação SaaS, gerando vazamento de leads e baixa conversão por atrito cultural no CRM. Redesenho completo da jornada comercial e playbooks de transição focados na redução de fricção para as equipes de front.</p>
-        <div class="metrics">
-          <div class="metric">
-            <strong>75%</strong>
-            <span>Show-rate histórico</span>
-          </div>
-          <div class="metric">
-            <strong>+333%</strong>
-            <span>Eficiência comercial interna</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="case-highlight">
-        <h3>Inteligência Comercial e Visibilidade Global</h3>
-        <p style="color:var(--muted)">Operação de tecnologia com forte autoridade de mercado, mas com dados descentralizados e tomada de decisão lenta por falta de governança de receita. Criação e modelagem de um portal estratégico de indicadores globais integrado à stack de dados e à rotina da liderança.</p>
-        <div class="metrics">
-          <div class="metric">
-            <strong>115k+</strong>
-            <span>Atividades auditadas</span>
-          </div>
-          <div class="metric">
-            <strong>Real-time</strong>
-            <span>Visibilidade de receita</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="about" id="sobre">
-      <img src="assets/uploads/andressa.jpg" alt="Andressa Freire — Revenue Architect" onerror="this.style.display='none';" />
-      <div class="bio">
-        <h3>Quem está por trás da estratégia</h3>
-        <p>Olá, sou <strong>Andressa Freire</strong>. Minha trajetória foi construída diretamente nas trincheiras das operações comerciais. Vivenciando o dia a dia do 'front', percebi exatamente onde os processos quebravam, onde as informações se perdiam e como a falta de estrutura minava o potencial de excelentes times.</p>
-        <p>A partir dessa dor prática, passei a liderar movimentos de mudança, redesenho e reestruturação de operações nas empresas por onde passei. Hoje, atuando como <strong>Revenue Architect</strong> na Lume Rev, combino essa bagagem prática de negócios com a precisão da inteligência de dados, traduzindo dados e operações complexas em estratégias enxutas, previsíveis e de alta performance.</p>
-        <p style="margin-top:24px"><a class="btn btn-outline" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Fale diretamente com a especialista</a></p>
+      <div class="about-header">
+        <h2>Sobre a Lume Rev</h2>
+        <p>Nossa tese e quem lidera a estratégia</p>
+      </div>
+      
+      <div class="about-section-block">
+        <h3>A Origem e o Propósito</h3>
+        <div class="about-content-text">
+          <p>A Lume Rev nasceu de uma constatação prática e incômoda colhida diretamente nas trincheiras das operações comerciais[span_1](start_span)[span_1](end_span). Vivenciando o dia a dia do front, ficou evidente onde a engrenagem quebrava: excelentes equipes comerciais perdiam tração por falta de processos consistentes, ferramentas descentralizadas e relatórios que não se traduziam em inteligência de verdade[span_2](start_span)[span_2](end_span).</p>
+          <p>Pensada para romper com o modelo das consultorias tradicionais — que entregam diagnósticos complexos mas se isentam da execução —, a Lume Rev foi estruturada sob o pilar da <strong>Revenue Architecture (Arquitetura de Receita)</strong>. Nosso objetivo corporativo é construir pontes sólidas e auditáveis entre marketing, vendas e pós-vendas, unificando dados reais para destravar a previsibilidade financeira e a tomada de decisão.</p>
+          <p>Entendemos que uma marca forte no mercado de tecnologia se consolida <strong>centrada no cliente</strong>. A eficiência operacional precisa gravitar em torno da jornada de quem compra. É esse alinhamento de fora para dentro que projeta relevância, autoridade e segurança para atrair investidores e clientes em rodadas complexas de escala B2B.</p>
+        </div>
+      </div>
+
+      <div class="about-section-block">
+        <h3>A Especialista</h3>
+        <div class="about-grid-expert">
+          <div class="about-profile">
+            <img src="assets/uploads/andressa.jpg" alt="Andressa Freire — Revenue Architect" onerror="this.src='https://via.placeholder.com/240';" />
+            <h4>Andressa Freire</h4>
+            <span>Revenue Architect & Fundadora</span>
+          </div>
+          <div class="about-content-text" style="margin-top: 0;">
+            <p>Minha trajetória foi construída diretamente nas trincheiras das operações comerciais[span_3](start_span)[span_3](end_span). Passando tempo suficiente na linha de frente do front comercial, aprendi que resultados de alta performance não dependem de forçar o time ao esgotamento, mas sim de consertar as engrenagens invisíveis que moem o tempo da equipe[span_4](start_span)[span_4](end_span).</p>
+            <p>Vivenciando na pele a dor de CRMs bagunçados, falta de critérios de passagem e ferramentas desalinhadas, mudei meu foco do operacional puro para a engenharia de processos[span_5](start_span)[span_5](end_span). Como fundadora da Lume Rev, uno essa bagagem de negócios à precisão da inteligência de dados, quebrando silos entre departamentos para garantir que a sua máquina comercial rode com previsibilidade, clareza técnica e total governança estrutural[span_6](start_span)[span_6](end_span).</p>
+            <p style="margin-top:24px"><a class="btn btn-outline" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Fale diretamente com a especialista</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gargalos-section" id="gargalos">
+      <h2>Sua empresa está crescendo ou apenas inchando?[span_7](start_span)[span_7](end_span)</h2>
+      <p style="color:var(--muted); text-align:center; max-width:650px; margin:0 auto;">Se a sua operação comercial enfrenta os sintomas abaixo, o problema quase nunca é a falta de empenho do time — é a ausência de uma estrutura que conecte os pontos[span_8](start_span)[span_8](end_span).</p>
+      
+      <div class="gargalos-grid">
+        <div class="gargalo-item">
+          <h3>O CRM como Museu de Dados[span_9](start_span)[span_9](end_span)</h3>
+          <p>Sistemas que viraram repositórios de anotações inúteis, cards zumbis e informações obsoletas[span_10](start_span)[span_10](end_span). O vendedor gasta mais tempo preenchendo campos confusos do que vendendo, transformando o pipeline em um buraco negro[span_11](start_span)[span_11](end_span).</p>
+        </div>
+        <div class="gargalo-item">
+          <h3>O Forecast Místico[span_12](start_span)[span_12](end_span)</h3>
+          <p>Previsões de fechamento baseadas em intuição, otimismo ou dados em que ninguém confia[span_13](start_span)[span_13](end_span). Reuniões de diretoria guiadas por esperança no PowerPoint em vez de critérios matemáticos e históricos de avanço reais[span_14](start_span)[span_14](end_span).</p>
+        </div>
+        <div class="gargalo-item">
+          <h3>O Frankenstein Tecnológico[span_15](start_span)[span_15](end_span)</h3>
+          <p>Contratação desordenada de softwares e ferramentas para remendar falhas de processos[span_16](start_span)[span_16](end_span). Cada área cria sua própria verdade em planilhas paralelas, destruindo a integridade dos dados globais da empresa[span_17](start_span)[span_17](end_span).</p>
+        </div>
+        <div class="gargalo-item">
+          <h3>Silos Operacionais Educados[span_18](start_span)[span_18](end_span)</h3>
+          <p>Marketing focado em volume, Vendas focado em fechamento e CS focado em sobrevivência[span_19](start_span)[span_19](end_span). Sem um acordo unificado, a operação sofre com leads fora do perfil e clientes saindo em silêncio pela porta dos fundos[span_20](start_span)[span_20](end_span).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto-epic">
+      <blockquote>
+        <h2>"Estratégia sem execução é apenas ruído."</h2>
+      </blockquote>
+      <p>Na Lume Rev, não acreditamos em receitas prontas de prateleira. Nosso modelo de atuação é exclusivo, personalizado e próximo, focado na realidade de cada negócio. Nós eliminamos os gargalos operacionais e de dados implementando a infraestrutura e a mentalidade que times de alta performance precisam para performar. Mais do que organizar fluxos, entregamos a previsibilidade de receita que a sua empresa precisa para sustentar um posicionamento competitivo e de alta autoridade — porque a forma como a sua operação roda determina a confiança que a sua marca projeta.</p>
+    </section>
+
+    <section class="cases-section" id="cases">
+      <h2>Cases de Impacto</h2>
+      <div class="subtitle">Storytelling Operacional em Prática</div>
+      
+      <div class="cases">
+        <div class="case-highlight">
+          <h3>Engenharia de Processos e Tração Comercial (Escalabilidade de Mentoria Executiva)</h3>
+          <p style="color:var(--muted); text-align:justify;">Uma operação de mentoria de alto nível voltada para empresárias (donas de salão de beleza) contava com autoridade e força de inbound fantásticas[span_21](start_span)[span_21](end_span). Contudo, o modelo dependia 100% da agenda limitada da fundadora, impedindo a escala e gerando sobrecarga[span_22](start_span)[span_22](end_span). Desenhamos uma nova engenharia comercial para retirar a mentora do gargalo[span_23](start_span)[span_23](end_span). Estruturamos produtos de receita recorrente de suporte financeiro com o time interno, migramos entregas individuais para turmas ao vivo em grupos exclusivos e centralizamos jornadas gravadas em plataforma online[span_24](start_span)[span_24](end_span). O processo permitiu expandir com eficiência de 3 para 13 mentorias ativas simultâneas, liberando a fundadora para parcerias e expansão da marca[span_25](start_span)[span_25](end_span).</p>
+          <div class="metrics">
+            <div class="metric">
+              <strong>+333%</strong>
+              <span>Eficiência interna[span_26](start_span)[span_26](end_span)</span>
+            </div>
+            <div class="metric">
+              <strong>Escala</strong>
+              <span>Agenda Livre</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-highlight">
+          <h3>Inteligência Comercial e Quebra de Silos Globais (Governança para Instituição)</h3>
+          <p style="color:var(--muted); text-align:justify;">Grande instituição sem fins lucrativos presente em 36 países enfrentava barreiras para tomar decisões preditivas estratégicas. Os dados eram trancados em silos operacionais de planilhas individuais não compartilhadas, gerando uma cultura de gestão reativa e focada em apagar incêndios. Lideramos o desenho e modelagem de um Portal de Indicadores Global para centralizar todas as ramificações internacionais (vocacional, juventude, finanças, benfeitoria). Criamos três níveis rígidos de validação (estimativa, dados de planilha e auditoria por sistema) para contornar a falta de histórico, estruturando uma linha de progressão precisa de metas de dados de 2027 a 2030.</p>
+          <div class="metrics">
+            <div class="metric">
+              <strong>36 Países</strong>
+              <span>Unificados</span>
+            </div>
+            <div class="metric">
+              <strong>3 Níveis</strong>
+              <span>De Governança</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-full">
+          <h3>Reestruturação e Estancamento de Gargalo Financeiro (Eficiência em Operação B2B)</h3>
+          <p style="color:var(--muted); text-align:justify;">Operação comercial sofria com graves fricções e quebras de handoff na passagem de leads, conflitos de prioridades entre times e decisões de pipeline pautadas em feeling. Ao auditar o trimestre, identificamos que o desalinhamento operacional gerava um desperdício de esforço humano equivalente a um prejuízo de 200k em capital de mão de obra. Reestruturamos completamente o processo: estabelecemos novos playbooks, implementamos a metodologia de Cadência 2.0 e fixamos SLAs (Acordos de Nível de Serviço) extremamente rígidos definindo os papéis e critérios cirúrgicos de transição entre as equipes de SDR e Closer. O vazamento financeiro foi estancado, devolvendo controle e governança ao front operacional.</p>
+          <div class="metrics">
+            <div class="metric">
+              <strong>200k</strong>
+              <span>Prejuízo estancado/Tri</span>
+            </div>
+            <div class="metric">
+              <strong>SLA Rígido</strong>
+              <span>SDR para Closer</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="contact" id="contato">
       <h3>Pronto para eliminar os gargalos da sua operação?</h3>
-      <p style="color:var(--muted); max-width:600px; margin: 0 auto 32px;">Agende um diagnóstico estratégico inicial de 30 minutos para mapearmos os vazamentos invisíveis de receita da sua empresa.</p>
+      <p style="color:var(--muted); max-width:600px; margin: 0 auto 32px;">Agende um diagnóstico estratégico inicial de 30 minutos para mapearmos os vazamentos invisíveis de receita da sua empresa[span_27](start_span)[span_27](end_span).</p>
       <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
         <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agendar Diagnóstico no HubSpot</a>
-        <a class="btn btn-outline" href="mailto:contato@lumerev.com">Enviar e-mail direto</a>
+        <a class="btn btn-outline" href="mailto:contatolumerev@gmail.com">Enviar e-mail direto</a>
       </div>
     </section>
-
-    <footer>
-      © 2026 Lume Rev — Todos os direitos reservados · <a href="/privacy" style="color:var(--muted);text-decoration:underline">Política de Privacidade</a>
-    </footer>
   </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>Lume Rev</h4>
+        <p>Revenue Architecture</p>
+        <p style="color: #cbd5e1; font-size: 0.85rem;">Transformando operações comerciais em estruturas enxutas, previsíveis e de alta performance.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Navegação</h5>
+          <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#sobre">Sobre a Empresa</a></li>
+            <li><a href="#gargalos">Os Gargalos</a></li>
+            <li><a href="#cases">Cases de Impacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Canais de Contato</h5>
+          <ul>
+            <li><a href="mailto:contatolumerev@gmail.com">contatolumerev@gmail.com</a></li>
+            <li><a href="#contato">Diagnóstico Estratégico</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Redes Sociais</h5>
+          <ul>
+            <li><a href="https://www.linkedin.com/company/lume-rev/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/lumerev?igsh=MTlndmswdmp2NTBiMw==" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Lume Rev — Todos os direitos reservados · <a href="/privacy" style="color:#ffffff;text-decoration:underline">Política de Privacidade</a>
+    </div>
+  </footer>
 </body>
 </html>
