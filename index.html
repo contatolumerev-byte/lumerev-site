@@ -3,349 +3,3417 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lume Rev — Arquitetura de Receita</title>
-  <meta name="description" content="Lume Rev — Transformando caos em clareza, dados em receita. Consultoria em Revenue Operations e Business Strategy." />
-  <meta property="og:title" content="Lume Rev — Arquitetura de Receita" />
-  <meta property="og:description" content="Construindo a arquitetura de receita que sustenta o seu crescimento." />
+
+  <title>Lume Rev — Estratégia & Estruturação de Negócios</title>
+
+  <meta
+    name="description"
+    content="A Lume Rev conecta estratégia, posicionamento, marketing, vendas, experiência, processos e dados para transformar operações fragmentadas em negócios mais claros, coerentes e preparados para crescer."
+  />
+
+  <meta property="og:title" content="Lume Rev — Estratégia & Estruturação de Negócios" />
+  <meta property="og:description" content="Do caos à clareza. Da estratégia à operação." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
     :root{
-      --bg: #fdfcfb; /* Off-White Boutique */
-      --panel: #f4f6f9; /* Fundo suave para blocos de destaque */
-      --text-main: #111e2e; /* Azul Escuro/Grafite para alta legibilidade */
-      --brand-blue: #0b2545; /* Azul Oficial Lume Rev */
-      --muted: #4a5568; /* Cinza Editorial para parágrafos */
-      --accent-gold: #b39258; /* Dourado de Detalhes */
-      --maxw: 1100px;
-      --radius: 8px;
-      --ff-display: 'Playfair Display', Georgia, serif;
-      --ff-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --cream:#F6F0E7;
+      --cream-2:#EDE2D2;
+      --white:#FFFDF9;
+      --wine:#6E1630;
+      --wine-dark:#481020;
+      --gold:#C98A27;
+      --gold-soft:#D8A34D;
+      --ink:#241A18;
+      --muted:#6C5B55;
+      --line:rgba(110,22,48,.15);
+      --maxw:1400px;
+      --radius-lg:36px;
+      --radius-md:24px;
+      --ff-display:'Playfair Display',Georgia,serif;
+      --ff-body:'DM Sans',system-ui,-apple-system,sans-serif;
+      --ease:cubic-bezier(.2,.8,.2,1);
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;scroll-behavior: smooth;}
+
+    html{
+      scroll-behavior:smooth;
+      background:var(--cream);
+    }
+
     body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 10% 7%,rgba(201,138,39,.08),transparent 27%),
+        radial-gradient(circle at 90% 18%,rgba(110,22,48,.05),transparent 24%),
+        var(--cream);
       font-family:var(--ff-body);
-      background-color: var(--bg);
-      color:var(--text-main);
       -webkit-font-smoothing:antialiased;
       line-height:1.6;
+      overflow-x:hidden;
     }
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:40px 20px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(11,37,69,0.08)}
-    
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand-logo-container {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius);
-      background: var(--brand-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+
+    body.menu-open{overflow:hidden}
+
+    a{
+      color:inherit;
+      text-decoration:none;
     }
-    .brand img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    } 
-    .brand h1{font-family:var(--ff-display);font-size:1.4rem;margin:0;letter-spacing:-0.01em;color:var(--brand-blue);font-weight:700}
-    
-    nav a{color:var(--muted);text-decoration:none;margin-left:24px;font-weight:500;font-size:0.95rem;transition:color 0.2s}
-    nav a:hover{color:var(--brand-blue)}
 
-    /* HERO */
-    .hero{padding:80px 0 60px;display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center}
-    .hero-left{padding-right:10px}
-    .eyebrow{display:inline-block;color:var(--accent-gold);font-weight:600;letter-spacing:0.12em;font-size:0.85rem;margin-bottom:16px;text-transform:uppercase}
-    h2.title{font-family:var(--ff-display);font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 24px;color:var(--brand-blue);line-height:1.2;font-weight:600}
-    p.lead{color:var(--muted);font-size:1.15rem;margin-bottom:36px;font-weight:400;max-width:640px}
-    
-    .cta-row{display:flex;gap:16px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:var(--radius);font-weight:600;text-decoration:none;transition:all 0.2s;font-size:0.95rem}
-    .btn-primary{background:var(--brand-blue);color:#ffffff}
-    .btn-primary:hover{background:#15355e;transform: translateY(-1px)}
-    .btn-outline{border:1px solid var(--brand-blue);color:var(--brand-blue);background:transparent}
-    .btn-outline:hover{background:rgba(11,37,69,0.04)}
+    button,a{
+      -webkit-tap-highlight-color:transparent;
+    }
 
-    .hero-card{background:var(--panel);border:1px solid rgba(11,37,69,0.05);padding:32px;border-radius:var(--radius)}
-    .hero-card h4{margin:0 0 12px;font-size:1.1rem;font-family:var(--ff-display);color:var(--brand-blue);font-weight:600}
-    .hero-card p{margin:0;color:var(--muted);font-size:0.95rem;line-height:1.65}
+    ::selection{
+      background:var(--gold);
+      color:var(--wine-dark);
+    }
 
-    /* GARGALOS */
-    .gargalos-section{padding:60px 0;border-top:1px solid rgba(11,37,69,0.08)}
-    .gargalos-section h2{font-family:var(--ff-display);font-size:2.2rem;color:var(--brand-blue);margin:0 0 12px;text-align:center}
-    .gargalos-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
-    .gargalo-item{background:var(--panel);padding:32px;border-radius:var(--radius);border:1px solid rgba(11,37,69,0.03)}
-    .gargalo-item h3{margin:0 0 12px;font-size:1.2rem;color:var(--brand-blue);font-family:var(--ff-display);font-weight:600}
-    .gargalo-item p{margin:0;color:var(--muted);font-size:0.95rem}
+    .shell{
+      width:min(var(--maxw),calc(100% - 40px));
+      margin:0 auto;
+    }
 
-    /* MANIFESTO MASSIFICADO */
-    .manifesto-epic{margin:80px 0;padding:60px 40px;background:var(--panel);border-radius:var(--radius);border-left:5px solid var(--accent-gold);text-align:left}
-    .manifesto-epic blockquote{margin:0 0 24px;padding:0;border:none}
-    .manifesto-epic blockquote h2{font-family:var(--ff-display);font-size:clamp(2rem,4vw,2.8rem);color:var(--brand-blue);margin:0;line-height:1.2;font-style:italic;font-weight:600}
-    .manifesto-epic p{color:var(--text-main);font-size:1.15rem;line-height:1.75;margin:0;font-weight:400}
+    /* =========================
+       HEADER
+    ========================= */
 
-    /* CASES */
-    .cases-section {padding: 40px 0;}
-    .cases-section h2 {font-family: var(--ff-display); font-size: 2.2rem; color: var(--brand-blue); margin-bottom: 8px; text-align:center}
-    .cases-section .subtitle{color:var(--accent-gold); text-align:center; font-weight:600; text-transform:uppercase; font-size:0.9rem; letter-spacing:0.1em; margin-bottom:48px}
-    .cases{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:32px}
-    .case-full {grid-column: span 2; background: var(--panel); padding: 40px; border-radius: var(--radius); border: 1px solid rgba(11,37,69,0.05);}
-    .case-highlight{background:var(--panel);padding:40px;border-radius:var(--radius);border:1px solid rgba(11,37,69,0.05);display:flex;flex-direction:column;justify-content:space-between}
-    .case-highlight h3, .case-full h3{font-family:var(--ff-display);font-size:1.45rem;margin-top:0;color:var(--brand-blue);font-weight:600;line-height:1.3}
-    
-    .metrics{display:flex;gap:16px;margin-top:auto;padding-top:28px}
-    .metric{flex:1;background:var(--bg);border:1px solid rgba(11,37,69,0.05);padding:20px;border-radius:var(--radius);text-align:center}
-    .metric strong{display:block;font-size:2.2rem;color:var(--brand-blue);font-family:var(--ff-display);font-weight:600}
-    .metric span{display:block;color:var(--muted);margin-top:6px;font-size:0.85rem;font-weight:500}
+    header{
+      width:min(1380px,calc(100% - 40px));
+      min-height:80px;
+      position:fixed;
+      top:18px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:50;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 18px 0 22px;
+      border:1px solid rgba(110,22,48,.12);
+      background:rgba(246,240,231,.78);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-radius:28px;
+      transition:box-shadow .3s ease,background .3s ease;
+    }
 
-    /* INSTITUCIONAL & SOBRE A ESPECIALISTA */
-    .about{margin:80px 0;padding-top:60px;border-top:1px solid rgba(11,37,69,0.08)}
-    .about-header {text-align: center; margin-bottom: 56px;}
-    .about-header h2 {font-family: var(--ff-display); font-size: 2.4rem; color: var(--brand-blue); margin: 0 0 8px;}
-    .about-header p {color: var(--accent-gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem;}
-    
-    .about-section-block {margin-bottom: 60px;}
-    .about-section-block h3 {font-family: var(--ff-display); font-size: 1.6rem; color: var(--brand-blue); border-bottom: 2px solid rgba(11,37,69,0.05); padding-bottom: 12px; margin-bottom: 24px;}
-    .about-content-text p {color:var(--muted); font-size:1.05rem; margin-bottom:20px; text-align: justify; line-height:1.7}
+    header.scrolled{
+      background:rgba(246,240,231,.93);
+      box-shadow:0 18px 60px rgba(72,16,32,.08);
+    }
 
-    .about-grid-expert {display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start; margin-top: 40px;}
-    .about-profile {text-align: center;}
-    .about-profile img{width:100%; max-width: 240px; height:auto; object-fit:cover; border-radius:var(--radius); border:3px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 16px;}
-    .about-profile h4 {margin: 0; font-size: 1.2rem; color: var(--brand-blue); font-weight: 600;}
-    .about-profile span {font-size: 0.9rem; color: var(--accent-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:13px;
+    }
 
-    /* CONTACT BLOCK */
-    .contact{padding:56px;background:var(--panel);border-radius:var(--radius);border:1px solid rgba(11,37,69,0.05);margin:80px 0;text-align:center}
-    .contact h3{font-family:var(--ff-display);font-size:2rem;margin-top:0;color:var(--brand-blue);font-weight:600}
+    .brand-mark{
+      width:36px;
+      height:36px;
+      position:relative;
+      display:grid;
+      place-items:center;
+    }
 
-    /* FOOTER */
-    footer{background: var(--brand-blue); color: #ffffff; padding: 60px 0 30px;}
-    .footer-grid {display: grid; grid-template-columns: 1fr 2fr; gap: 40px; max-width: var(--maxw); margin: 0 auto; padding: 0 20px;}
-    .footer-brand h4 {font-family: var(--ff-display); font-size: 1.5rem; margin: 0 0 8px; color: #ffffff;}
-    .footer-brand p {color: #a3b8cc; font-size: 0.9rem; margin: 0 0 16px;}
-    .footer-links {display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;}
-    .footer-col h5 {color: var(--accent-gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 16px;}
-    .footer-col ul {list-style: none; padding: 0; margin: 0;}
-    .footer-col ul li {margin-bottom: 10px;}
-    .footer-col ul li a {color: #cbd5e1; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;}
-    .footer-col ul li a:hover {color: #ffffff;}
-    .footer-bottom {max-width: var(--maxw); margin: 40px auto 0; padding: 24px 20px 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85rem; color: #a3b8cc;}
+    .brand-mark::after{
+      content:"";
+      width:8px;
+      height:8px;
+      background:var(--gold);
+      border-radius:50%;
+      position:absolute;
+      inset:0;
+      margin:auto;
+    }
 
-    @media (max-width:920px){
-      .hero{grid-template-columns:1fr;padding:40px 0;gap:32px}
-      .gargalos-grid{grid-template-columns:1fr}
-      .cases{grid-template-columns:1fr}
-      .case-full {grid-column: span 1;}
-      .about-grid-expert{grid-template-columns:1fr; gap: 32px;}
-      .footer-grid {grid-template-columns: 1fr; gap: 32px;}
-      .footer-links {grid-template-columns: 1fr 1fr;}
-      .hero-card{order:2}
+    .brand-mark i{
+      position:absolute;
+      width:2px;
+      height:13px;
+      background:var(--gold);
+      border-radius:10px;
+      top:0;
+      left:50%;
+      transform-origin:50% 18px;
+    }
+
+    .brand-mark i:nth-child(1){transform:translateX(-50%) rotate(0deg)}
+    .brand-mark i:nth-child(2){transform:translateX(-50%) rotate(45deg)}
+    .brand-mark i:nth-child(3){transform:translateX(-50%) rotate(90deg)}
+    .brand-mark i:nth-child(4){transform:translateX(-50%) rotate(135deg)}
+    .brand-mark i:nth-child(5){transform:translateX(-50%) rotate(180deg)}
+    .brand-mark i:nth-child(6){transform:translateX(-50%) rotate(225deg)}
+    .brand-mark i:nth-child(7){transform:translateX(-50%) rotate(270deg)}
+    .brand-mark i:nth-child(8){transform:translateX(-50%) rotate(315deg)}
+
+    .brand-copy{
+      display:flex;
+      align-items:baseline;
+      gap:7px;
+      color:var(--wine);
+    }
+
+    .brand-copy strong{
+      font-family:var(--ff-display);
+      font-size:28px;
+      line-height:1;
+      letter-spacing:-1.5px;
+      font-weight:600;
+    }
+
+    .brand-copy small{
+      font-size:9px;
+      letter-spacing:.26em;
+      font-weight:700;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:25px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    nav a{
+      transition:color .2s ease,transform .2s ease;
+    }
+
+    nav a:not(.nav-cta):hover{
+      color:var(--wine);
+      transform:translateY(-1px);
+    }
+
+    .nav-cta{
+      padding:13px 18px;
+      border-radius:999px;
+      background:var(--wine);
+      color:var(--cream)!important;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:42px;
+      height:42px;
+      border:0;
+      background:transparent;
+      padding:10px;
+      cursor:pointer;
+      z-index:55;
+    }
+
+    .menu-toggle span{
+      display:block;
+      height:1.5px;
+      width:100%;
+      margin:6px 0;
+      background:var(--wine);
+      transition:transform .3s ease,background .3s ease;
+    }
+
+    /* =========================
+       GLOBAL
+    ========================= */
+
+    section{
+      scroll-margin-top:120px;
+    }
+
+    .eyebrow{
+      display:block;
+      margin:0 0 20px;
+      color:var(--gold);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-weight:700;
+    }
+
+    .btn{
+      min-height:52px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      padding:0 22px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:600;
+      transition:
+        transform .25s var(--ease),
+        box-shadow .25s var(--ease),
+        background .25s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+    }
+
+    .btn-primary{
+      color:var(--cream);
+      background:var(--wine);
+      box-shadow:0 16px 40px rgba(110,22,48,.14);
+    }
+
+    .btn-primary:hover{
+      box-shadow:0 22px 55px rgba(110,22,48,.2);
+    }
+
+    .btn-outline{
+      color:var(--wine);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.18);
+    }
+
+    .btn-gold{
+      color:var(--wine-dark);
+      background:var(--gold);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(22px);
+      transition:
+        opacity .8s var(--ease),
+        transform .8s var(--ease);
+    }
+
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .delay-1{transition-delay:.08s}
+    .delay-2{transition-delay:.16s}
+    .delay-3{transition-delay:.24s}
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero{
+      min-height:100svh;
+      padding:170px 5vw 90px;
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr);
+      gap:8vw;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-left{
+      position:relative;
+      z-index:3;
+      max-width:920px;
+    }
+
+    .hero h1{
+      margin:0;
+      color:var(--wine);
+      font-family:var(--ff-display);
+      font-weight:500;
+      font-size:clamp(54px,7vw,112px);
+      line-height:.97;
+      letter-spacing:-.045em;
+    }
+
+    .hero h1 em{
+      font-weight:500;
+    }
+
+    .hero .lead{
+      max-width:770px;
+      margin:34px 0 0;
+      color:var(--muted);
+      font-size:clamp(17px,1.5vw,22px);
+    }
+
+    .cta-row{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:38px;
+    }
+
+    .hero-side{
+      position:relative;
+      z-index:3;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    .hero-card{
+      width:min(100%,390px);
+      padding:28px;
+      border:1px solid rgba(110,22,48,.14);
+      border-radius:var(--radius-md);
+      background:rgba(255,253,249,.36);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border:1px solid rgba(201,138,39,.35);
+      border-radius:50%;
+      top:-86px;
+      right:-86px;
+    }
+
+    .hero-card span{
+      display:block;
+      margin-bottom:44px;
+      color:var(--gold);
+      font-size:10px;
+    }
+
+    .hero-card p{
+      margin:0;
+      color:var(--wine);
+      font-family:var(--ff-display);
+      font-size:clamp(25px,2.2vw,34px);
+      line-height:1.08;
+    }
+
+    .hero-card p + p{
+      color:var(--gold);
+      font-style:italic;
+    }
+
+    .signal{
+      width:min(100%,390px);
+      display:flex;
+      gap:9px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:26px;
+      color:var(--wine);
+      font-size:9px;
+      letter-spacing:.12em;
+    }
+
+    .signal b{
+      color:var(--gold);
+    }
+
+    .hero-rays{
+      position:absolute;
+      width:320px;
+      height:320px;
+      opacity:.24;
+      pointer-events:none;
+    }
+
+    .hero-rays::before,
+    .contact-rays::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:repeating-conic-gradient(
+        from 0deg,
+        var(--gold) 0deg .8deg,
+        transparent .8deg 7deg
+      );
+      mask-image:radial-gradient(
+        circle,
+        transparent 0 16%,
+        #000 17% 70%,
+        transparent 71%
+      );
+      -webkit-mask-image:radial-gradient(
+        circle,
+        transparent 0 16%,
+        #000 17% 70%,
+        transparent 71%
+      );
+    }
+
+    .rays-left{
+      left:-200px;
+      top:40%;
+    }
+
+    .rays-right{
+      right:-210px;
+      bottom:-60px;
+    }
+
+    .orb{
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .orb-a{
+      width:430px;
+      height:430px;
+      right:-190px;
+      top:120px;
+      background:var(--gold);
+      opacity:.11;
+    }
+
+    .orb-b{
+      width:300px;
+      height:300px;
+      left:-180px;
+      bottom:10px;
+      background:var(--wine);
+      opacity:.06;
+    }
+
+    /* =========================
+       VISÃO
+    ========================= */
+
+    .vision{
+      padding:120px 5vw 130px;
+    }
+
+    .section-kicker{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:50px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .section-kicker span{
+      width:35px;
+      height:35px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--gold);
+      border-radius:50%;
+      color:var(--gold);
+      font-size:10px;
+    }
+
+    .section-kicker p{
+      margin:0;
+    }
+
+    .vision-grid{
+      display:grid;
+      grid-template-columns:.92fr 1.08fr;
+      gap:7vw;
+      align-items:center;
+    }
+
+    .vision-copy h2,
+    .method h2,
+    .services h2,
+    .cases h2,
+    .about h2,
+    .contact h2{
+      margin:0;
+      color:var(--wine);
+      font-family:var(--ff-display);
+      font-weight:500;
+      line-height:.99;
+      letter-spacing:-.04em;
+    }
+
+    .vision-copy h2{
+      max-width:630px;
+      font-size:clamp(44px,5vw,76px);
+    }
+
+    .vision-copy p{
+      max-width:640px;
+      margin:24px 0 0;
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    .vision-copy .strong-line{
+      padding-left:20px;
+      border-left:2px solid var(--gold);
+      color:var(--wine);
+      font-weight:600;
+    }
+
+    .vision-notes{
+      min-height:620px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(110,22,48,.12);
+      border-radius:var(--radius-lg);
+      background:
+        radial-gradient(circle at center,rgba(201,138,39,.09),transparent 32%),
+        rgba(255,253,249,.28);
+    }
+
+    .vision-notes::before,
+    .vision-notes::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      border:1px solid rgba(110,22,48,.09);
+      border-radius:50%;
+    }
+
+    .vision-notes::before{
+      width:330px;
+      height:330px;
+    }
+
+    .vision-notes::after{
+      width:520px;
+      height:520px;
+    }
+
+    .vision-center{
+      width:180px;
+      height:180px;
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      z-index:4;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      border-radius:50%;
+      background:var(--wine);
+      color:var(--cream);
+      text-align:center;
+      box-shadow:0 28px 70px rgba(72,16,32,.18);
+    }
+
+    .vision-center small{
+      color:var(--gold-soft);
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+    }
+
+    .vision-center strong{
+      font-family:var(--ff-display);
+      font-size:28px;
+      font-weight:500;
+    }
+
+    .vision-note{
+      max-width:240px;
+      position:absolute;
+      z-index:5;
+      padding:15px;
+      border:1px solid rgba(110,22,48,.13);
+      border-radius:22px;
+      background:rgba(246,240,231,.91);
+      box-shadow:0 14px 34px rgba(72,16,32,.05);
+    }
+
+    .vision-note span{
+      display:block;
+      margin-bottom:8px;
+      color:var(--gold);
+      font-size:9px;
+    }
+
+    .vision-note p{
+      margin:0;
+      color:var(--wine);
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    .note-a{
+      left:8%;
+      top:14%;
+    }
+
+    .note-b{
+      right:8%;
+      top:21%;
+    }
+
+    .note-c{
+      left:7%;
+      bottom:17%;
+    }
+
+    .note-d{
+      right:7%;
+      bottom:12%;
+    }
+
+    .vision-footer{
+      max-width:980px;
+      margin-top:70px;
+    }
+
+    .vision-footer p{
+      margin:0;
+      color:var(--wine);
+      font-family:var(--ff-display);
+      font-size:clamp(30px,3.6vw,52px);
+      line-height:1.08;
+    }
+
+    .vision-footer strong{
+      color:var(--gold);
+      font-weight:500;
+    }
+
+    /* =========================
+       MÉTODO
+    ========================= */
+
+    .method{
+      padding:110px 5vw 120px;
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--radius-lg);
+      background:var(--wine);
+      color:var(--cream);
+    }
+
+    .method::before{
+      content:"";
+      position:absolute;
+      width:620px;
+      height:620px;
+      top:-280px;
+      right:-270px;
+      border:1px solid rgba(216,163,77,.18);
+      border-radius:50%;
+    }
+
+    .method-intro{
+      max-width:850px;
+      position:relative;
+      z-index:2;
+    }
+
+    .method .eyebrow{
+      color:var(--gold-soft);
+    }
+
+    .method h2{
+      color:var(--cream);
+      font-size:clamp(46px,5.2vw,78px);
+    }
+
+    .method h2 em{
+      color:var(--gold-soft);
+    }
+
+    .method-intro > p:last-child{
+      max-width:650px;
+      margin-top:26px;
+      color:rgba(246,240,231,.72);
+      font-size:17px;
+    }
+
+    .method-track{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:70px;
+      position:relative;
+      z-index:2;
+    }
+
+    .method-card{
+      min-height:360px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:22px;
+      border:1px solid rgba(246,240,231,.12);
+      border-radius:26px;
+      background:rgba(255,255,255,.025);
+      transition:
+        transform .3s var(--ease),
+        background .3s ease,
+        border-color .3s ease;
+    }
+
+    .method-card:hover{
+      transform:translateY(-8px);
+      background:rgba(255,255,255,.055);
+      border-color:rgba(216,163,77,.35);
+    }
+
+    .method-letter{
+      color:var(--gold);
+      font-family:var(--ff-display);
+      font-size:110px;
+      line-height:.8;
+    }
+
+    .method-number{
+      color:var(--gold-soft);
+      font-size:10px;
+      letter-spacing:.15em;
+    }
+
+    .method-card h3{
+      margin:8px 0 14px;
+      font-family:var(--ff-display);
+      font-size:30px;
+      font-weight:500;
+    }
+
+    .method-card p{
+      margin:0;
+      color:rgba(246,240,231,.67);
+      font-size:14px;
+    }
+
+    .method-summary{
+      margin-top:44px;
+      padding:24px 0;
+      position:relative;
+      z-index:2;
+      border-top:1px solid rgba(246,240,231,.12);
+      border-bottom:1px solid rgba(246,240,231,.12);
+    }
+
+    .method-summary p{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      margin:0;
+      color:var(--gold-soft);
+      font-family:var(--ff-display);
+      font-style:italic;
+      font-size:17px;
+    }
+
+    .method-cta{
+      margin-top:55px;
+      padding:28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:30px;
+      position:relative;
+      z-index:2;
+      border:1px solid rgba(216,163,77,.24);
+      border-radius:26px;
+      background:rgba(255,255,255,.035);
+    }
+
+    .method-cta .eyebrow{
+      margin-bottom:8px;
+    }
+
+    .method-cta h3{
+      max-width:700px;
+      margin:0;
+      font-family:var(--ff-display);
+      font-size:clamp(31px,3.3vw,48px);
+      font-weight:500;
+      line-height:1.05;
+    }
+
+    .method-cta h3 em{
+      color:var(--gold-soft);
+      font-weight:500;
+    }
+
+    /* =========================
+       O QUE FAZEMOS
+    ========================= */
+
+    .services{
+      padding:130px 5vw;
+    }
+
+    .services-head{
+      max-width:1000px;
+    }
+
+    .services h2{
+      font-size:clamp(46px,5vw,76px);
+    }
+
+    .services h2 em{
+      color:var(--gold);
+      font-weight:500;
+    }
+
+    .services-head > p:last-child{
+      max-width:780px;
+      margin-top:26px;
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    .services-list{
+      margin-top:70px;
+      border-top:1px solid var(--line);
+    }
+
+    .service-item{
+      display:grid;
+      grid-template-columns:72px minmax(0,1fr) auto;
+      gap:28px;
+      align-items:center;
+      padding:30px 0;
+      border-bottom:1px solid var(--line);
+      transition:padding-left .25s var(--ease);
+    }
+
+    .service-item:hover{
+      padding-left:14px;
+    }
+
+    .service-index{
+      color:var(--gold);
+      font-size:11px;
+    }
+
+    .service-type{
+      margin:0 0 8px;
+      color:var(--muted);
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+
+    .service-copy h3{
+      margin:0 0 10px;
+      color:var(--wine);
+      font-family:var(--ff-display);
+      font-size:clamp(30px,3vw,46px);
+      font-weight:500;
+    }
+
+    .service-copy > p:last-child{
+      max-width:800px;
+      margin:0;
+      color:var(--muted);
+    }
+
+    .service-meta{
+      max-width:230px;
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .service-meta span{
+      padding:8px 11px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--wine);
+      font-size:10px;
+    }
+
+    .services-extra{
+      margin-top:26px;
+      padding:20px 24px;
+      border-radius:20px;
+      background:rgba(201,138,39,.08);
+      color:var(--muted);
+    }
+
+    .services-extra p{
+      margin:0;
+    }
+
+    .services-extra strong{
+      color:var(--wine);
+    }
+
+    .services-cta{
+      margin-top:60px;
+      padding:32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:30px;
+      border-radius:30px;
+      background:var(--gold);
+      color:var(--wine-dark);
+    }
+
+    .services-cta .eyebrow{
+      margin-bottom:8px;
+      color:var(--wine-dark);
+      opacity:.65;
+    }
+
+    .services-cta h3{
+      margin:0;
+      font-family:var(--ff-display);
+      font-size:clamp(30px,3.3vw,48px);
+      font-weight:500;
+    }
+
+    /* =========================
+       STATEMENT
+    ========================= */
+
+    .statement{
+      min-height:72vh;
+      display:grid;
+      place-items:center;
+      position:relative;
+      padding:120px 5vw;
+      text-align:center;
+    }
+
+    .statement p{
+      max-width:1100px;
+      margin:0;
+      position:relative;
+      z-index:2;
+      color:var(--wine);
+      font-family:var(--ff-display);
+      font-size:clamp(38px,5vw,76px);
+      line-height:1.05;
+    }
+
+    .statement strong{
+      color:var(--gold);
+      font-weight:500;
+    }
+
+    .statement-sun{
+      width:510px;
+      height:510px;
+      position:absolute;
+      opacity:.13;
+      background:repeating-conic-gradient(
+        from 0deg,
+        var(--gold) 0deg .9deg,
+        transparent .9deg 13deg
+      );
+      mask-image:radial-gradient(
+        circle,
+        transparent 0 14%,
+        #000 15% 70%,
+        transparent 71%
+      );
+      -webkit-mask-image:radial-gradient(
+        circle,
+        transparent 0 14%,
+        #000 15% 70%,
+        transparent 71%
+      );
+    }
+
+    /* =========================
+       CASES
+    ========================= */
+
+    .cases{
+      padding:115px 5vw 135px;
+      border-top:1px solid var(--line);
+    }
+
+    .cases-head{
+      max-width:920px;
+    }
+
+    .cases h2{
+      font-size:clamp(46px,5vw,76px);
+    }
+
+    .cases h2 em{
+      color:var(--gold);
+      font-weight:500;
+    }
+
+    .cases-head > p:last-child{
+      max-width:770px;
+      margin-top:26px;
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    .case-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:70px;
+    }
+
+    .case-card{
+      min-height:520px;
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      border-radius:30px;
+      transition:
+        transform .3s var(--ease),
+        box-shadow .3s var(--ease);
+    }
+
+    .case-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 26px 64px rgba(72,16,32,.09);
+    }
+
+    .case-wine{
+      background:var(--wine);
+      color:var(--cream);
+    }
+
+    .case-gold{
+      background:var(--gold);
+      color:var(--wine-dark);
+    }
+
+    .case-cream{
+      background:var(--white);
+      color:var(--wine);
+      border:1px solid var(--line);
+    }
+
+    .case-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+    }
+
+    .case-top span{
+      font-size:10px;
+      opacity:.7;
+    }
+
+    .case-top p{
+      max-width:180px;
+      margin:0;
+      font-size:10px;
+      text-align:right;
+      text-transform:uppercase;
+      letter-spacing:.11em;
+    }
+
+    .case-card h3{
+      margin:auto 0 22px;
+      font-family:var(--ff-display);
+      font-size:clamp(34px,3vw,46px);
+      font-weight:500;
+      line-height:1.04;
+    }
+
+    .case-card > p{
+      margin:0;
+      opacity:.72;
+    }
+
+    .case-bottom{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+    .case-bottom span{
+      padding:7px 10px;
+      border:1px solid currentColor;
+      border-radius:999px;
+      font-size:9px;
+      opacity:.66;
+    }
+
+    .cases-note{
+      max-width:650px;
+      margin-top:28px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* =========================
+       QUEM SOMOS
+    ========================= */
+
+    .about{
+      padding:120px 5vw 140px;
+    }
+
+    .about-intro{
+      max-width:1000px;
+    }
+
+    .about h2{
+      font-size:clamp(46px,5.2vw,80px);
+    }
+
+    .about h2 em{
+      color:var(--gold);
+      font-weight:500;
+    }
+
+    .about-story{
+      max-width:980px;
+      margin-top:52px;
+      padding-left:24px;
+      border-left:2px solid var(--gold);
+    }
+
+    .about-story p{
+      margin:0 0 22px;
+      color:var(--muted);
+      font-size:18px;
+    }
+
+    .about-story strong{
+      color:var(--wine);
+    }
+
+    .founders-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:70px;
+    }
+
+    .founder-card{
+      min-height:540px;
+      padding:34px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      border-radius:32px;
+      transition:transform .3s var(--ease);
+    }
+
+    .founder-card:hover{
+      transform:translateY(-7px);
+    }
+
+    .founder-andressa{
+      background:var(--wine);
+      color:var(--cream);
+    }
+
+    .founder-larissa{
+      background:var(--gold);
+      color:var(--wine-dark);
+    }
+
+    .founder-number{
+      position:absolute;
+      top:20px;
+      right:20px;
+      opacity:.15;
+      font-family:var(--ff-display);
+      font-size:clamp(130px,14vw,220px);
+      line-height:.75;
+    }
+
+    .founder-content{
+      width:min(90%,620px);
+      align-self:flex-end;
+      position:relative;
+      z-index:2;
+    }
+
+    .founder-role{
+      margin:0 0 14px;
+      opacity:.75;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+
+    .founder-card h3{
+      margin:0 0 18px;
+      font-family:var(--ff-display);
+      font-size:clamp(44px,4.7vw,72px);
+      font-weight:500;
+      line-height:.95;
+    }
+
+    .founder-nickname{
+      margin:-6px 0 18px!important;
+      opacity:.7!important;
+      font-family:var(--ff-display);
+      font-size:20px!important;
+      font-style:italic;
+    }
+
+    .founder-content > p:not(.founder-role):not(.founder-nickname){
+      max-width:560px;
+      margin:0;
+      opacity:.74;
+      font-size:15px;
+    }
+
+    .founder-line{
+      width:100%;
+      height:1px;
+      margin:28px 0 18px;
+      background:currentColor;
+      opacity:.18;
+    }
+
+    .founder-content span{
+      font-family:var(--ff-display);
+      font-style:italic;
+      font-size:18px;
+    }
+
+    .founders-bridge{
+      margin-top:28px;
+      padding:16px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--wine);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+    }
+
+    .founders-bridge i{
+      width:34px;
+      height:1px;
+      background:var(--gold);
+    }
+
+    /* =========================
+       CONTATO
+    ========================= */
+
+    .contact{
+      position:relative;
+      padding:0 0 30px;
+    }
+
+    .contact-card{
+      min-height:660px;
+      padding:clamp(34px,6vw,86px);
+      display:grid;
+      grid-template-columns:.6fr 1.4fr;
+      gap:8vw;
+      align-items:end;
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--radius-lg);
+      background:var(--wine);
+      color:var(--cream);
+    }
+
+    .contact-card::before{
+      content:"";
+      position:absolute;
+      width:580px;
+      height:580px;
+      top:-250px;
+      left:-340px;
+      border:1px solid rgba(216,163,77,.15);
+      border-radius:50%;
+    }
+
+    .contact-brand{
+      position:relative;
+      z-index:2;
+      align-self:flex-start;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .contact-brand p{
+      margin:0;
+      color:var(--gold-soft);
+      font-family:var(--ff-display);
+      font-size:21px;
+      line-height:1.1;
+    }
+
+    .contact-copy{
+      position:relative;
+      z-index:2;
+    }
+
+    .contact .eyebrow{
+      color:var(--gold-soft);
+    }
+
+    .contact h2{
+      color:var(--cream);
+      font-size:clamp(50px,5.6vw,88px);
+    }
+
+    .contact h2 em{
+      color:var(--gold-soft);
+      font-weight:500;
+    }
+
+    .contact-copy > p:not(.eyebrow){
+      max-width:700px;
+      margin-top:24px;
+      color:rgba(246,240,231,.72);
+      font-size:17px;
+    }
+
+    .contact-emphasis{
+      padding-left:18px;
+      border-left:2px solid var(--gold);
+    }
+
+    .contact-emphasis strong{
+      display:block;
+      margin-top:6px;
+      color:var(--gold-soft);
+    }
+
+    .contact-actions{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-top:38px;
+    }
+
+    .btn-light{
+      background:var(--cream);
+      color:var(--wine);
+    }
+
+    .contact-link{
+      padding-bottom:4px;
+      border-bottom:1px solid rgba(246,240,231,.25);
+      color:var(--cream);
+      font-size:13px;
+    }
+
+    .contact-link span{
+      color:var(--gold-soft);
+    }
+
+    .contact-rays{
+      width:460px;
+      height:460px;
+      position:absolute;
+      right:-180px;
+      bottom:-90px;
+      opacity:.18;
+      z-index:1;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      background:var(--wine-dark);
+      color:var(--cream);
+      margin-top:18px;
+      padding:60px 0 30px;
+    }
+
+    .footer-grid{
+      width:min(1100px,calc(100% - 40px));
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 2fr;
+      gap:40px;
+    }
+
+    .footer-brand h4{
+      margin:0 0 8px;
+      font-family:var(--ff-display);
+      font-size:1.6rem;
+      font-weight:500;
+    }
+
+    .footer-brand p{
+      margin:0;
+      color:rgba(246,240,231,.68);
+      font-size:.9rem;
+    }
+
+    .footer-links{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+    }
+
+    .footer-col h5{
+      margin:0 0 16px;
+      color:var(--gold-soft);
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+    }
+
+    .footer-col ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .footer-col li{
+      margin-bottom:10px;
+    }
+
+    .footer-col a{
+      color:rgba(246,240,231,.72);
+      font-size:.9rem;
+      transition:color .2s ease;
+    }
+
+    .footer-col a:hover{
+      color:#fff;
+    }
+
+    .footer-bottom{
+      width:min(1100px,calc(100% - 40px));
+      margin:40px auto 0;
+      padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.1);
+      text-align:center;
+      color:rgba(246,240,231,.6);
+      font-size:.84rem;
+    }
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media(max-width:1120px){
+
+      nav a:not(.nav-cta){
+        display:none;
+      }
+
+      .hero{
+        grid-template-columns:1fr;
+        gap:60px;
+      }
+
+      .hero-side{
+        align-items:flex-start;
+      }
+
+      .hero-card,
+      .signal{
+        width:min(100%,520px);
+      }
+
+      .vision-grid{
+        grid-template-columns:1fr;
+      }
+
+      .method-track{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .method-cta,
+      .services-cta{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .case-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .case-card:last-child{
+        grid-column:1/-1;
+        min-height:390px;
+      }
+
+      .contact-card{
+        grid-template-columns:1fr;
+        align-items:start;
+      }
+
+      .contact-copy{
+        align-self:end;
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:760px){
+
+      header{
+        width:calc(100% - 24px);
+        min-height:68px;
+        top:12px;
+        border-radius:22px;
+        padding:0 14px 0 16px;
+      }
+
+      .brand-copy strong{
+        font-size:24px;
+      }
+
+      .brand-mark{
+        transform:scale(.9);
+      }
+
+      .menu-toggle{
+        display:block;
+      }
+
+      nav{
+        position:fixed;
+        inset:-13px -13px auto auto;
+        width:min(88vw,410px);
+        height:100svh;
+        padding:120px 30px 40px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        border-radius:0 0 0 34px;
+        background:var(--wine);
+        color:var(--cream);
+        transform:translateX(110%);
+        transition:transform .4s var(--ease);
+        box-shadow:-30px 0 80px rgba(72,16,32,.18);
+      }
+
+      .menu-open nav{
+        transform:translateX(0);
+      }
+
+      nav a,
+      nav a:not(.nav-cta){
+        display:block;
+        padding:17px 0;
+        border-bottom:1px solid rgba(246,240,231,.12);
+        color:var(--cream);
+        font-family:var(--ff-display);
+        font-size:27px;
+      }
+
+      .nav-cta{
+        margin-top:22px;
+        border:0!important;
+        background:var(--gold);
+        color:var(--wine-dark)!important;
+        text-align:center;
+        font-family:var(--ff-body)!important;
+        font-size:13px!important;
+      }
+
+      .menu-open .menu-toggle span{
+        background:var(--cream);
+      }
+
+      .menu-open .menu-toggle span:first-child{
+        transform:translateY(4px) rotate(45deg);
+      }
+
+      .menu-open .menu-toggle span:last-child{
+        transform:translateY(-3px) rotate(-45deg);
+      }
+
+      .shell{
+        width:calc(100% - 24px);
+      }
+
+      .hero{
+        min-height:auto;
+        padding:135px 16px 90px;
+      }
+
+      .hero h1{
+        font-size:clamp(48px,15vw,72px);
+      }
+
+      .hero .lead{
+        font-size:16px;
+      }
+
+      .cta-row{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .hero-card{
+        padding:22px;
+      }
+
+      .vision,
+      .services,
+      .cases,
+      .about{
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .vision{
+        padding-top:90px;
+        padding-bottom:95px;
+      }
+
+      .vision-copy h2,
+      .services h2,
+      .cases h2,
+      .about h2{
+        font-size:47px;
+      }
+
+      .vision-copy p,
+      .services-head > p:last-child,
+      .cases-head > p:last-child,
+      .about-story p{
+        font-size:15px;
+      }
+
+      .vision-notes{
+        min-height:630px;
+        border-radius:28px;
+      }
+
+      .vision-notes::after{
+        width:410px;
+        height:410px;
+      }
+
+      .vision-notes::before{
+        width:250px;
+        height:250px;
+      }
+
+      .vision-center{
+        width:138px;
+        height:138px;
+      }
+
+      .vision-center strong{
+        font-size:22px;
+      }
+
+      .vision-note{
+        max-width:170px;
+        padding:12px;
+      }
+
+      .vision-note p{
+        font-size:11px;
+      }
+
+      .note-a{
+        left:4%;
+        top:13%;
+      }
+
+      .note-b{
+        right:4%;
+        top:27%;
+      }
+
+      .note-c{
+        left:4%;
+        bottom:22%;
+      }
+
+      .note-d{
+        right:4%;
+        bottom:8%;
+      }
+
+      .vision-footer{
+        margin-top:52px;
+      }
+
+      .vision-footer p{
+        font-size:36px;
+      }
+
+      .method{
+        width:calc(100% - 24px);
+        padding:82px 20px 90px;
+        border-radius:30px;
+      }
+
+      .method h2{
+        font-size:48px;
+      }
+
+      .method-track{
+        grid-template-columns:1fr;
+        margin-top:48px;
+      }
+
+      .method-card{
+        min-height:260px;
+      }
+
+      .method-letter{
+        font-size:90px;
+      }
+
+      .method-summary p{
+        flex-direction:column;
+        gap:7px;
+      }
+
+      .method-cta{
+        padding:24px;
+      }
+
+      .method-cta h3{
+        font-size:35px;
+      }
+
+      .services{
+        padding-top:95px;
+        padding-bottom:100px;
+      }
+
+      .services-list{
+        margin-top:50px;
+      }
+
+      .service-item{
+        grid-template-columns:34px 1fr;
+        gap:14px;
+      }
+
+      .service-meta{
+        grid-column:2;
+        justify-content:flex-start;
+        max-width:none;
+      }
+
+      .service-copy h3{
+        font-size:34px;
+      }
+
+      .services-cta{
+        padding:26px 22px;
+      }
+
+      .services-cta h3{
+        font-size:34px;
+      }
+
+      .statement{
+        min-height:60vh;
+        padding:95px 18px;
+      }
+
+      .statement p{
+        font-size:39px;
+      }
+
+      .statement-sun{
+        width:340px;
+        height:340px;
+      }
+
+      .cases{
+        padding-top:90px;
+        padding-bottom:100px;
+      }
+
+      .case-grid{
+        grid-template-columns:1fr;
+        margin-top:50px;
+      }
+
+      .case-card,
+      .case-card:last-child{
+        grid-column:auto;
+        min-height:420px;
+      }
+
+      .about{
+        padding-top:95px;
+        padding-bottom:100px;
+      }
+
+      .about-story{
+        margin-top:38px;
+        padding-left:16px;
+      }
+
+      .founders-grid{
+        grid-template-columns:1fr;
+        margin-top:48px;
+      }
+
+      .founder-card{
+        min-height:470px;
+        padding:26px;
+      }
+
+      .founder-content{
+        width:100%;
+      }
+
+      .founders-bridge{
+        justify-content:flex-start;
+        border-radius:24px;
+      }
+
+      .contact{
+        width:calc(100% - 24px);
+      }
+
+      .contact-card{
+        min-height:700px;
+        padding:28px 22px 36px;
+        border-radius:30px;
+      }
+
+      .contact-brand{
+        align-items:flex-start;
+        margin-bottom:70px;
+      }
+
+      .contact h2{
+        font-size:51px;
+      }
+
+      .contact-actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .contact-link{
+        width:fit-content;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .footer-links{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+
+      *,
+      *::before,
+      *::after{
+        scroll-behavior:auto!important;
+        animation:none!important;
+        transition-duration:.01ms!important;
+      }
+
+      .reveal{
+        opacity:1;
+        transform:none;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="brand-logo-container">
-          <img src="/assets/uploads/logo.jpg" alt="Lume Rev Logo" onerror="this.src='https://via.placeholder.com/44/0b2545/ffffff?text=LR';">
-        </div>
-        <div>
-          <h1>Lume Rev</h1>
-          <div style="font-size:0.75rem;color:var(--accent-gold);letter-spacing:0.04em;text-transform:uppercase;font-weight:600;margin-top:2px">Transformando caos em clareza, dados em receita</div>
-        </div>
-      </div>
-      <nav>
-        <a href="#sobre">Sobre</a>
-        <a href="#especialista">A Especialista</a>
-        <a href="#gargalos">Gargalos</a>
-        <a href="#cases">Cases</a>
-        <a href="#contato">Contato</a>
-      </nav>
-    </header>
 
-    <section class="hero" aria-label="Hero">
-      <div class="hero-left">
-        <div class="eyebrow">Revenue Architecture</div>
-        <h2 class="title">Construindo a arquitetura de receita que sustenta o seu crescimento.</h2>
-        <p class="lead">Desatamos os nós operacionais da sua máquina de vendas. Desenhamos, integramos e otimizamos processos de ponta a ponta para transformar dados em previsibilidade de receita e garantir um positioning de mercado forte e de alta autoridade para empresas de Tecnologia, Mentorias de Alto Padrão, Educação e Mercado Alimentício.</p>
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <a class="brand" href="#inicio" aria-label="Lume Rev — início">
+
+      <span class="brand-mark" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+
+      <span class="brand-copy">
+        <strong>lume</strong>
+        <small>REV</small>
+      </span>
+
+    </a>
+
+    <button
+      class="menu-toggle"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav>
+
+      <a href="#visao">Visão</a>
+
+      <a href="#metodo">Método</a>
+
+      <a href="#fazemos">O que fazemos</a>
+
+      <a href="#cases">Cases</a>
+
+      <a href="#quem-somos">Quem somos</a>
+
+      <a
+        class="nav-cta"
+        href="https://meetings.hubspot.com/contato-andressafreire"
+        target="_blank"
+        rel="noopener"
+      >
+        Conversar com a Lume
+      </a>
+
+    </nav>
+
+  </header>
+
+  <main id="inicio">
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero shell">
+
+      <div
+        class="hero-rays rays-left"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="hero-rays rays-right"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="orb orb-a"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="orb orb-b"
+        aria-hidden="true"
+      ></div>
+
+      <div class="hero-left reveal">
+
+        <span class="eyebrow">
+          Estratégia & Estruturação de Negócios
+        </span>
+
+        <h1>
+          Negócios crescem.<br>
+          <em>Nem sempre a estrutura cresce junto.</em>
+        </h1>
+
+        <p class="lead">
+          A Lume Rev conecta posicionamento, marketing, vendas,
+          experiência, processos e dados para transformar operações
+          fragmentadas em negócios mais claros, coerentes e preparados
+          para crescer.
+        </p>
+
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agende um Diagnóstico Estratégico</a>
-          <a class="btn btn-outline" href="#cases">Ver Cases de Impacto</a>
+
+          <a
+            class="btn btn-primary"
+            href="https://meetings.hubspot.com/contato-andressafreire"
+            target="_blank"
+            rel="noopener"
+          >
+            Quero conversar com a Lume
+            <span>↗</span>
+          </a>
+
+          <a
+            class="btn btn-outline"
+            href="#visao"
+          >
+            Entender a nossa visão
+          </a>
+
         </div>
+
       </div>
 
-      <aside class="hero-card">
-        <h4>Estrutura Customizada</h4>
-        <p>Atuação focada em execução e engenharia de processos. Desenhamos arquiteturas comerciais sob medida para que CEOs e diretores recuperem a visibilidade absoluta da operação e eliminem de vez os vazamentos invisíveis de receita.</p>
+      <aside class="hero-side reveal delay-1">
+
+        <div class="hero-card">
+
+          <span>01</span>
+
+          <p>
+            Do caos à clareza.
+          </p>
+
+          <p>
+            Da estratégia à operação.
+          </p>
+
+        </div>
+
+        <div class="signal">
+
+          <span>ESTRATÉGIA</span>
+
+          <b>•</b>
+
+          <span>CONEXÃO</span>
+
+          <b>•</b>
+
+          <span>ESTRUTURA</span>
+
+          <b>•</b>
+
+          <span>CRESCIMENTO</span>
+
+        </div>
+
       </aside>
+
     </section>
 
-    <section class="about" id="sobre">
-      <div class="about-header">
-        <h2>Sobre a Lume Rev</h2>
-        <p>Nossa tese e quem lidera a estratégia</p>
-      </div>
-      
-      <div class="about-section-block">
-        <h3>A Origem e o Propósito</h3>
-        <div class="about-content-text">
-          <p>A Lume Rev nasceu de uma constatação prática e incômoda colhida diretamente nas trincheiras das operações comerciais. Vivenciando o dia a dia do front, ficou evidente onde a engrenagem quebrava: excelentes equipes comerciais perdiam tração por falta de processos consistentes, ferramentas descentralizadas e relatórios que não se traduziam in inteligência de verdade.</p>
-          <p>Pensada para romper com o modelo das consultorias tradicionais — que entregam diagnósticos complexos mas se isentam da execução —, a Lume Rev foi estruturada sob o pilar da <strong>Revenue Architecture (Arquitetura de Receita)</strong>. Nosso objetivo corporativo é construir pontes sólidas e auditáveis entre marketing, vendas e pós-vendas, unificando dados reais para destravar a previsibilidade financeira e a tomada de decisão.</p>
-          <p>Entendemos que uma marca forte no mercado de tecnologia se consolida <strong>centrada no cliente</strong>. A eficiência operacional precisa gravitar em torno da jornada de quem compra. É esse alinhamento de fora para dentro que projeta relevância, autoridade e segurança para atrair investidores e clientes em rodadas complexas de escala B2B.</p>
-        </div>
+    <!-- =========================
+         VISÃO
+    ========================== -->
+
+    <section
+      class="vision shell"
+      id="visao"
+    >
+
+      <div class="section-kicker reveal">
+
+        <span>02</span>
+
+        <p>
+          O princípio que orienta a Lume Rev.
+        </p>
+
       </div>
 
-      <div class="about-section-block" id="especialista">
-        <h3>A Especialista</h3>
-        <div class="about-grid-expert">
-          <div class="about-profile">
-          <img src="/assets/uploads/andressa.jpeg" alt="Andressa Freire — Revenue Architect" onerror="this.src='https://via.placeholder.com/240/0b2545/ffffff?text=Andressa+Freire';" />
-            <h4>Andressa Freire</h4>
-            <span>Revenue Architect & Fundadora</span>
+      <div class="vision-grid">
+
+        <div class="vision-copy reveal">
+
+          <h2>
+            Uma empresa é
+            <em>uma experiência só.</em>
+          </h2>
+
+          <p>
+            Por dentro, existem áreas, funções, metas e responsabilidades
+            diferentes. Por fora, o cliente não enxerga nada disso.
+          </p>
+
+          <p>
+            Ele enxerga a marca que conheceu, a mensagem que recebeu,
+            a conversa que teve, a compra que fez, o atendimento que
+            encontrou e aquilo que aconteceu depois.
+          </p>
+
+          <p>
+            Quando essas partes deixam de conversar, surgem pequenas
+            rupturas. E nem sempre elas aparecem de forma óbvia.
+          </p>
+
+          <p class="strong-line">
+            A Lume Rev nasceu de uma percepção simples:
+            negócios não deveriam ser pensados em partes quando
+            o cliente os experimenta por inteiro.
+          </p>
+
+        </div>
+
+        <div class="vision-notes reveal delay-1">
+
+          <div class="vision-note note-a">
+
+            <span>01</span>
+
+            <p>
+              Entre o que a empresa quer ser e o que comunica.
+            </p>
+
           </div>
-          <div class="about-content-text" style="margin-top: 0;">
-            <p>Minha trajetória foi construída diretamente nas trincheiras das operações comerciais. Passando tempo suficiente na linha de frente do front comercial, aprendi que resultados de alta performance não dependem de forçar o time ao esgotamento, mas sim de consertar as engrenagens invisíveis que moem o tempo da equipe.</p>
-            <p>Como graduanda em Gestão Comercial e especialista em Revenue Operations (RevOps) e Business Strategy, mudei meu foco do operacional puro para a engenharia de processos e arquitetura de receita. Ao longo da minha jornada, desenvolvi uma sólida bagagem estratégica desenhando e otimizando estruturas comerciais para empresas de tecnologia, grandes mentorias executivas, instituições de educação e negócios do ramo alimentício.</p>
-            <p>À frente da Lume Rev, uno essa versatilidade de mercado à precisão da inteligência de dados, utilizando ferramentas como SQL, BigQuery e HubSpot para estruturar fluxos previsíveis. Meu objetivo é quebrar de vez os silos entre marketing, vendas e pós-vendas, garantindo que a sua máquina comercial — independente do seu setor — rode com clareza técnica, total governança estrutural e a máxima eficiência que o seu negócio exige.</p>
-            <p style="margin-top:24px"><a class="btn btn-outline" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Fale diretamente com a especialista</a></p>
+
+          <div class="vision-note note-b">
+
+            <span>02</span>
+
+            <p>
+              Entre o que promete e o que entrega.
+            </p>
+
           </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="gargalos-section" id="gargalos">
-      <h2>Sua empresa está crescendo ou apenas inchando?</h2>
-      <p style="color:var(--muted); text-align:center; max-width:650px; margin:0 auto;">Se a sua operação comercial enfrenta os sintomas abaixo, o problema quase nunca é a falta de empenho do time — é a ausência de uma estrutura que conecte os pontos.</p>
-      
-      <div class="gargalos-grid">
-        <div class="gargalo-item">
-          <h3>O CRM como Museu de Dados</h3>
-          <p>Sistemas que viraram repositórios de anotações inúteis, cards zumbis e informações obsoletas. O vendedor gasta mais tempo preenchendo campos confusos do que vendendo, transformando o pipeline em um buraco negro.</p>
-        </div>
-        <div class="gargalo-item">
-          <h3>O Forecast Místico</h3>
-          <p>Previsões de fechamento baseadas em intuição, otimismo ou dados em que ninguém confia. Reuniões de diretoria guiadas por esperança no PowerPoint em vez de critérios matemáticos e históricos de avanço reais.</p>
-        </div>
-        <div class="gargalo-item">
-          <h3>O Frankenstein Tecnológico</h3>
-          <p>Contratação desordenada de softwares e ferramentas para remendar falhas de processos. Cada área cria sua própria verdade em planilhas paralelas, destruindo a integridade dos dados globais da empresa.</p>
-        </div>
-        <div class="gargalo-item">
-          <h3>Silos Operacionais Educados</h3>
-          <p>Marketing focado em volume, Vendas focado em fechamento e CS focado em sobrevivência. Sem um acordo unificado, a operação sofre com leads fora do perfil e clientes saindo em silêncio pela porta dos fundos.</p>
-        </div>
-      </div>
-    </section>
+          <div class="vision-note note-c">
 
-    <section class="manifesto-epic">
-      <blockquote>
-        <h2>"Estratégia sem execução é apenas ruído."</h2>
-      </blockquote>
-      <p>Na Lume Rev, não acreditamos em receitas prontas de prateleira. Nosso modelo de atuação é exclusivo, personalizado e próximo, focado na realidade de cada negócio. Nós eliminamos os gargalos operacionais e de dados implementando a infraestrutura e a mentalidade que times de alta performance precisam para performar. Mais do que organizar fluxos, entregamos a previsibilidade de receita que a sua empresa precisa para sustentar um posicionamento competitivo e de alta autoridade — porque a forma como a sua operação roda determina a confiança que a sua marca projeta.</p>
-    </section>
+            <span>03</span>
 
-    <section class="cases-section" id="cases">
-      <h2>Cases de Impacto</h2>
-      <div class="subtitle">Evidências de Arquitetura em Ação</div>
-      
-      <div class="cases">
-        <div class="case-highlight">
-          <h3>Engenharia de Processos e Tração Comercial (Escalabilidade de Mentoria Executiva)</h3>
-          <p style="color:var(--muted); text-align:justify;">Uma operação de mentoria de alto nível voltada para empresárias (donas de salão de beleza) contava com autoridade e força de inbound fantásticas. Contudo, o modelo dependia 100% da agenda limitada da fundadora, impedindo a escala e gerando sobrecarga. Desenhamos uma nova engenharia comercial para retirar a mentora do gargalo. Estruturamos produtos de receita recorrente de suporte financeiro com o time interno, migramos entregas individuais para turmas ao vivo em grupos exclusivos e centralizamos jornadas gravadas em plataforma online. O processo permitiu expandir com eficiência de 3 para 13 mentorias ativas simultâneas, liberando a fundadora para parcerias e expansão da marca.</p>
-          <div class="metrics">
-            <div class="metric">
-              <strong>+333%</strong>
-              <span>Eficiência interna</span>
-            </div>
-            <div class="metric">
-              <strong>Escala</strong>
-              <span>Agenda Livre</span>
-            </div>
+            <p>
+              Entre quem atrai e quem vende.
+            </p>
+
           </div>
+
+          <div class="vision-note note-d">
+
+            <span>04</span>
+
+            <p>
+              Entre o que acontece na operação e aquilo
+              que chega à tomada de decisão.
+            </p>
+
+          </div>
+
+          <div class="vision-center">
+
+            <small>
+              É nesse espaço que trabalhamos.
+            </small>
+
+            <strong>
+              Nas conexões.
+            </strong>
+
+          </div>
+
         </div>
 
-        <div class="case-highlight">
-          <h3>Inteligência Comercial e Quebra de Silos Globais (Governança para Instituição)</h3>
-          <p style="color:var(--muted); text-align:justify;">Grande instituição sem fins lucrativos presente em 36 países enfrentava barreiras para tomar decisões preditivas estratégicas. Os dados eram trancados indevidamente em silos operacionais de planilhas individuais não compartilhadas, gerando uma cultura de gestão reativa e focada em apagar incêndios. Lideramos o desenho e modelagem de um Portal de Indicadores Global para centralizar todas as ramificações internacionais (vocacional, juventude, finanças, benfeitoria). Criamos três níveis rígidos de validação (estimativa, dados de planilha e auditoria por sistema) para contornar a falta de histórico, estruturando uma linha de progressão precisa de metas de dados de 2027 a 2030.</p>
-          <div class="metrics">
-            <div class="metric">
-              <strong>36 Países</strong>
-              <span>Unificados</span>
-            </div>
-            <div class="metric">
-              <strong>3 Níveis</strong>
-              <span>De Governança</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="case-full">
-          <h3>Reestruturação e Estancamento de Gargalo Financeiro (Eficiência em Operação B2B)</h3>
-          <p style="color:var(--muted); text-align:justify;">Operação comercial sofria com graves fricções e quebras de handoff na passagem de leads, conflitos de prioridades entre times e decisões de pipeline pautadas em feeling. Ao auditar o trimestre, identificamos que o desalinhamento operacional gerava um desperdício de esforço humano equivalente a um prejuízo de 200k em capital de mão de obra. Reestruturamos completamente o processo: estabelecemos novos playbooks, implementamos a metodologia de Cadência 2.0 e fixamos SLAs (Acordos de Nível de Serviço) extremamente rígidos definindo os papéis e critérios cirúrgicos de transição entre as equipes de SDR e Closer. O vazamento financeiro foi estancado, devolvendo controle e governança ao front operacional.</p>
-          <div class="metrics">
-            <div class="metric">
-              <strong>200k</strong>
-              <span>Prejuízo estancado/Tri</span>
-            </div>
-            <div class="metric">
-              <strong>SLA Rígido</strong>
-              <span>SDR para Closer</span>
-            </div>
-          </div>
-        </div>
       </div>
+
+      <div class="vision-footer reveal">
+
+        <p>
+          Não para tornar empresas mais complexas.
+          <strong>
+            Mas para trazer clareza à complexidade
+            que o crescimento naturalmente criou.
+          </strong>
+        </p>
+
+      </div>
+
     </section>
 
-    <section class="contact" id="contato">
-      <h3>Pronto para eliminar os gargalos da sua operação?</h3>
-      <p style="color:var(--muted); max-width:600px; margin: 0 auto 32px;">Agende um diagnóstico estratégico inicial de 30 minutos para mapearmos os vazamentos invisíveis de receita da sua empresa.</p>
-      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap">
-        <a class="btn btn-primary" href="https://meetings.hubspot.com/contato-andressafreire" target="_blank" rel="noopener">Agendar Diagnóstico no HubSpot</a>
-        <a class="btn btn-outline" href="mailto:contatolumerev@gmail.com">Enviar e-mail direto</a>
+    <!-- =========================
+         MÉTODO LUME
+    ========================== -->
+
+    <section
+      class="method shell"
+      id="metodo"
+    >
+
+      <div class="method-intro reveal">
+
+        <span class="eyebrow">
+          Método LUME
+        </span>
+
+        <h2>
+          Uma forma de transformar
+          <em>clareza em movimento.</em>
+        </h2>
+
+        <p>
+          O Método LUME organiza a nossa maneira de compreender
+          e estruturar negócios sem partir de soluções prontas.
+        </p>
+
       </div>
+
+      <div class="method-track">
+
+        <article class="method-card reveal">
+
+          <div class="method-letter">
+            L
+          </div>
+
+          <div>
+
+            <span class="method-number">
+              01
+            </span>
+
+            <h3>
+              Lumiar
+            </h3>
+
+            <p>
+              Antes de transformar, é preciso enxergar.
+              Tornamos mais claro o contexto, as relações,
+              tensões e oportunidades do negócio.
+            </p>
+
+          </div>
+
+        </article>
+
+        <article class="method-card reveal delay-1">
+
+          <div class="method-letter">
+            U
+          </div>
+
+          <div>
+
+            <span class="method-number">
+              02
+            </span>
+
+            <h3>
+              Unificar
+            </h3>
+
+            <p>
+              Conectamos aquilo que precisa funcionar como uma
+              única experiência, aproximando estratégia,
+              marca, cliente e operação.
+            </p>
+
+          </div>
+
+        </article>
+
+        <article class="method-card reveal delay-2">
+
+          <div class="method-letter">
+            M
+          </div>
+
+          <div>
+
+            <span class="method-number">
+              03
+            </span>
+
+            <h3>
+              Materializar
+            </h3>
+
+            <p>
+              Clareza ganha forma. Estratégia começa a existir
+              nas decisões, experiências, processos e na maneira
+              como a empresa opera.
+            </p>
+
+          </div>
+
+        </article>
+
+        <article class="method-card reveal delay-3">
+
+          <div class="method-letter">
+            E
+          </div>
+
+          <div>
+
+            <span class="method-number">
+              04
+            </span>
+
+            <h3>
+              Evoluir
+            </h3>
+
+            <p>
+              Acompanhamos o encontro entre estratégia e realidade
+              para que a estrutura continue aprendendo e evoluindo
+              junto com o negócio.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div class="method-summary reveal">
+
+        <p>
+
+          <span>
+            Lumiar para enxergar.
+          </span>
+
+          <span>
+            Unificar para conectar.
+          </span>
+
+          <span>
+            Materializar para acontecer.
+          </span>
+
+          <span>
+            Evoluir para continuar.
+          </span>
+
+        </p>
+
+      </div>
+
+      <div class="method-cta reveal">
+
+        <div>
+
+          <span class="eyebrow">
+            Uma pergunta antes da solução
+          </span>
+
+          <h3>
+            Sua empresa cresceu.
+            <em>E a estrutura acompanhou?</em>
+          </h3>
+
+        </div>
+
+        <a
+          class="btn btn-gold"
+          href="https://meetings.hubspot.com/contato-andressafreire"
+          target="_blank"
+          rel="noopener"
+        >
+          Quero olhar para o meu negócio
+          <span>↗</span>
+        </a>
+
+      </div>
+
     </section>
-  </div>
+
+    <!-- =========================
+         O QUE FAZEMOS
+    ========================== -->
+
+    <section
+      class="services shell"
+      id="fazemos"
+    >
+
+      <div class="services-head reveal">
+
+        <span class="eyebrow">
+          O que fazemos
+        </span>
+
+        <h2>
+          Nem toda empresa precisa de tudo.
+          <em>
+            O trabalho começa entendendo
+            o que faz sentido agora.
+          </em>
+        </h2>
+
+        <p>
+          A Lume trabalha por etapas e necessidades.
+          Algumas empresas precisam organizar uma frente específica.
+          Outras precisam conectar diferentes pontos da operação.
+          E algumas já estruturaram a base e querem acompanhamento.
+        </p>
+
+      </div>
+
+      <div class="services-list">
+
+        <article class="service-item reveal">
+
+          <div class="service-index">
+            01
+          </div>
+
+          <div class="service-copy">
+
+            <p class="service-type">
+              Ponto de partida
+            </p>
+
+            <h3>
+              Diagnóstico Lume
+            </h3>
+
+            <p>
+              Uma conversa estratégica para compreender o momento
+              do negócio, suas prioridades e se existe aderência
+              entre o desafio e a atuação da Lume.
+            </p>
+
+          </div>
+
+          <div class="service-meta">
+
+            <span>
+              gratuito
+            </span>
+
+            <span>
+              entrada
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="service-item reveal delay-1">
+
+          <div class="service-index">
+            02
+          </div>
+
+          <div class="service-copy">
+
+            <p class="service-type">
+              Projeto
+            </p>
+
+            <h3>
+              Estruturação Lume
+            </h3>
+
+            <p>
+              Para negócios que precisam organizar e conectar
+              frentes prioritárias de posicionamento, marketing,
+              vendas, experiência e operação.
+            </p>
+
+          </div>
+
+          <div class="service-meta">
+
+            <span>
+              essencial
+            </span>
+
+            <span>
+              completa
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="service-item reveal delay-2">
+
+          <div class="service-index">
+            03
+          </div>
+
+          <div class="service-copy">
+
+            <p class="service-type">
+              Execução conectada
+            </p>
+
+            <h3>
+              Social Lume
+            </h3>
+
+            <p>
+              Estratégia e execução de conteúdo conectadas ao
+              posicionamento e ao momento real da empresa —
+              não apenas à necessidade de manter frequência.
+            </p>
+
+          </div>
+
+          <div class="service-meta">
+
+            <span>
+              conteúdo
+            </span>
+
+            <span>
+              direção criativa
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="service-item reveal">
+
+          <div class="service-index">
+            04
+          </div>
+
+          <div class="service-copy">
+
+            <p class="service-type">
+              Necessidades específicas
+            </p>
+
+            <h3>
+              Projetos Pontuais
+            </h3>
+
+            <p>
+              Intervenções específicas para desafios que não
+              exigem uma estruturação completa, mas pedem
+              estratégia, construção e implementação.
+            </p>
+
+          </div>
+
+          <div class="service-meta">
+
+            <span>
+              sob medida
+            </span>
+
+            <span>
+              escopo definido
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="service-item reveal delay-1">
+
+          <div class="service-index">
+            05
+          </div>
+
+          <div class="service-copy">
+
+            <p class="service-type">
+              Continuidade
+            </p>
+
+            <h3>
+              Assessoria Lume
+            </h3>
+
+            <p>
+              Para empresas que já estruturaram suas bases
+              e querem a Lume acompanhando decisões, movimentos,
+              resultados e novos ciclos de crescimento.
+            </p>
+
+          </div>
+
+          <div class="service-meta">
+
+            <span>
+              acompanhamento
+            </span>
+
+            <span>
+              evolução
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div class="services-extra reveal">
+
+        <p>
+          <strong>
+            Soluções complementares:
+          </strong>
+          treinamentos para equipes, inteligência, indicadores,
+          automações e projetos especiais.
+        </p>
+
+      </div>
+
+      <div class="services-cta reveal">
+
+        <div>
+
+          <span class="eyebrow">
+            Não sabe por onde começar?
+          </span>
+
+          <h3>
+            O diagnóstico existe justamente para isso.
+          </h3>
+
+        </div>
+
+        <a
+          class="btn btn-primary"
+          href="https://meetings.hubspot.com/contato-andressafreire"
+          target="_blank"
+          rel="noopener"
+        >
+          Descobrir por onde começar
+          <span>↗</span>
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         STATEMENT
+    ========================== -->
+
+    <section class="statement shell">
+
+      <div
+        class="statement-sun"
+        aria-hidden="true"
+      ></div>
+
+      <p class="reveal">
+        Não organizamos departamentos isolados.<br>
+
+        <strong>
+          Estruturamos a empresa a partir da
+          experiência completa do cliente.
+        </strong>
+      </p>
+
+    </section>
+
+    <!-- =========================
+         CASES
+    ========================== -->
+
+    <section
+      class="cases shell"
+      id="cases"
+    >
+
+      <div class="cases-head reveal">
+
+        <span class="eyebrow">
+          Experiência em movimento
+        </span>
+
+        <h2>
+          A Lume é nova.
+          <em>O repertório por trás dela, não.</em>
+        </h2>
+
+        <p>
+          Nossa forma de trabalhar reúne experiências anteriores
+          das fundadoras e projetos construídos a partir de
+          diferentes desafios de posicionamento, comunicação,
+          vendas, operações e crescimento.
+        </p>
+
+      </div>
+
+      <div class="case-grid">
+
+        <article class="case-card case-wine reveal">
+
+          <div class="case-top">
+
+            <span>
+              01
+            </span>
+
+            <p>
+              Estruturação Comercial & RevOps
+            </p>
+
+          </div>
+
+          <h3>
+            Quando crescer exige mais
+            do que aumentar atividade.
+          </h3>
+
+          <p>
+            Projetos voltados à organização de processos comerciais,
+            inteligência, automação e construção de operações
+            mais consistentes.
+          </p>
+
+          <div class="case-bottom">
+
+            <span>
+              processos
+            </span>
+
+            <span>
+              inteligência
+            </span>
+
+            <span>
+              automação
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="case-card case-gold reveal delay-1">
+
+          <div class="case-top">
+
+            <span>
+              02
+            </span>
+
+            <p>
+              Marca, Moda & Comunicação
+            </p>
+
+          </div>
+
+          <h3>
+            Quando comunicar também
+            é construir percepção.
+          </h3>
+
+          <p>
+            Experiências em posicionamento, conteúdo, campanhas
+            e construção de presença para marcas, especialmente
+            no universo da moda.
+          </p>
+
+          <div class="case-bottom">
+
+            <span>
+              posicionamento
+            </span>
+
+            <span>
+              conteúdo
+            </span>
+
+            <span>
+              campanhas
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="case-card case-cream reveal delay-2">
+
+          <div class="case-top">
+
+            <span>
+              03
+            </span>
+
+            <p>
+              Dados & Inteligência Operacional
+            </p>
+
+          </div>
+
+          <h3>
+            Quando informação precisa virar
+            capacidade de decisão.
+          </h3>
+
+          <p>
+            Projetos que transformam informações dispersas
+            em estruturas de acompanhamento capazes de
+            tornar a operação mais visível.
+          </p>
+
+          <div class="case-bottom">
+
+            <span>
+              indicadores
+            </span>
+
+            <span>
+              dados
+            </span>
+
+            <span>
+              decisão
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div class="cases-note reveal">
+
+        <p>
+          Aos poucos, algumas dessas histórias também vão
+          aparecer por aqui com mais contexto, processo e resultado.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         QUEM SOMOS
+    ========================== -->
+
+    <section
+      class="about shell"
+      id="quem-somos"
+    >
+
+      <div class="about-intro reveal">
+
+        <span class="eyebrow">
+          Quem somos
+        </span>
+
+        <h2>
+          Duas perspectivas.
+          <em>
+            Uma forma integrada de enxergar negócios.
+          </em>
+        </h2>
+
+      </div>
+
+      <div class="about-story reveal">
+
+        <p>
+          A Lume Rev nasce do encontro entre
+          <strong>Andressa Freire</strong>
+          e
+          <strong>Larissa Pereira — Lari Pebê</strong>,
+          duas trajetórias construídas em lados diferentes
+          da operação, mas que frequentemente chegavam
+          à mesma conclusão: os problemas de um negócio
+          raramente existem de forma isolada.
+        </p>
+
+        <p>
+          Andressa traz uma trajetória ligada a operações comerciais,
+          inteligência, processos, dados, automação e RevOps.
+          Larissa construiu sua experiência entre marketing,
+          moda, comunicação, conteúdo e experiência de marca.
+        </p>
+
+        <p>
+          Foi da combinação desses dois olhares que surgiu a Lume:
+          uma consultoria que entende estratégia e execução como
+          partes da mesma conversa, conectando o que acontece
+          por dentro da empresa à forma como ela é percebida
+          e experimentada por quem está do lado de fora.
+        </p>
+
+      </div>
+
+      <div class="founders-grid">
+
+        <article class="founder-card founder-andressa reveal">
+
+          <div class="founder-number">
+            A.
+          </div>
+
+          <div class="founder-content">
+
+            <p class="founder-role">
+              Co-founder · Estratégia & Operações
+            </p>
+
+            <h3>
+              Andressa Freire
+            </h3>
+
+            <p>
+              Atua na leitura do negócio, desenho da operação,
+              inteligência comercial, processos, indicadores,
+              automação e conexão entre estratégia e execução.
+            </p>
+
+            <div class="founder-line"></div>
+
+            <span>
+              clareza para decidir
+            </span>
+
+          </div>
+
+        </article>
+
+        <article class="founder-card founder-larissa reveal delay-1">
+
+          <div class="founder-number">
+            L.
+          </div>
+
+          <div class="founder-content">
+
+            <p class="founder-role">
+              Co-founder · Criação & Experiência
+            </p>
+
+            <h3>
+              Larissa Pereira
+            </h3>
+
+            <p class="founder-nickname">
+              Lari Pebê
+            </p>
+
+            <p>
+              Atua na construção da narrativa, posicionamento,
+              direção criativa, experiência de marca e tradução
+              da estratégia em comunicação com intenção.
+            </p>
+
+            <div class="founder-line"></div>
+
+            <span>
+              intenção para comunicar
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div class="founders-bridge reveal">
+
+        <span>
+          estratégia
+        </span>
+
+        <i></i>
+
+        <span>
+          experiência
+        </span>
+
+        <i></i>
+
+        <span>
+          operação
+        </span>
+
+        <i></i>
+
+        <span>
+          crescimento
+        </span>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         CONTATO
+    ========================== -->
+
+    <section
+      class="contact shell"
+      id="contato"
+    >
+
+      <div
+        class="contact-rays"
+        aria-hidden="true"
+      ></div>
+
+      <div class="contact-card reveal">
+
+        <div class="contact-brand">
+
+          <span
+            class="brand-mark"
+            aria-hidden="true"
+          >
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+
+          <p>
+            Do caos à clareza.<br>
+            Da estratégia à operação.
+          </p>
+
+        </div>
+
+        <div class="contact-copy">
+
+          <span class="eyebrow">
+            Conversar
+          </span>
+
+          <h2>
+            Talvez o problema não esteja
+            <em>onde parece estar.</em>
+          </h2>
+
+          <p>
+            Se o seu negócio cresceu, mas alguma coisa entre
+            estratégia e operação deixou de acompanhar esse
+            movimento, podemos começar por uma conversa.
+          </p>
+
+          <p class="contact-emphasis">
+            Sem solução pronta.
+            Sem pacote escolhido antes de entender o problema.
+
+            <strong>
+              Vamos primeiro olhar para o negócio.
+            </strong>
+          </p>
+
+          <div class="contact-actions">
+
+            <a
+              class="btn btn-light"
+              href="https://meetings.hubspot.com/contato-andressafreire"
+              target="_blank"
+              rel="noopener"
+            >
+              Agendar Diagnóstico Lume
+              <span>↗</span>
+            </a>
+
+            <a
+              class="contact-link"
+              href="mailto:contatolumerev@gmail.com"
+            >
+              contatolumerev@gmail.com
+              <span>↗</span>
+            </a>
+
+            <a
+              class="contact-link"
+              href="https://www.linkedin.com/company/lume-rev/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+              <span>↗</span>
+            </a>
+
+            <a
+              class="contact-link"
+              href="https://www.instagram.com/lumerev?igsh=MTlndmswdmp2NTBiMw=="
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+              <span>↗</span>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
   <footer>
+
     <div class="footer-grid">
+
       <div class="footer-brand">
-        <h4>Lume Rev</h4>
-        <p style="color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-top: 4px;">Transformando caos em clareza, dados em receita</p>
+
+        <h4>
+          Lume Rev
+        </h4>
+
+        <p>
+          Do caos à clareza. Da estratégia à operação.
+        </p>
+
       </div>
+
       <div class="footer-links">
+
         <div class="footer-col">
-          <h5>Navegação</h5>
+
+          <h5>
+            Navegação
+          </h5>
+
           <ul>
-            <li><a href="#">Início</a></li>
-            <li><a href="#sobre">Sobre a Empresa</a></li>
-            <li><a href="#especialista">A Especialista</a></li>
-            <li><a href="#gargalos">Os Gargalos</a></li>
-            <li><a href="#cases">Cases de Impacto</a></li>
+
+            <li>
+              <a href="#inicio">
+                Início
+              </a>
+            </li>
+
+            <li>
+              <a href="#visao">
+                Visão
+              </a>
+            </li>
+
+            <li>
+              <a href="#metodo">
+                Método LUME
+              </a>
+            </li>
+
+            <li>
+              <a href="#fazemos">
+                O que fazemos
+              </a>
+            </li>
+
+            <li>
+              <a href="#cases">
+                Cases
+              </a>
+            </li>
+
+            <li>
+              <a href="#quem-somos">
+                Quem somos
+              </a>
+            </li>
+
           </ul>
+
         </div>
+
         <div class="footer-col">
-          <h5>Canais de Contato</h5>
+
+          <h5>
+            Canais de Contato
+          </h5>
+
           <ul>
-            <li><a href="mailto:contatolumerev@gmail.com">contatolumerev@gmail.com</a></li>
-            <li><a href="#contato">Diagnóstico Estratégico</a></li>
+
+            <li>
+
+              <a href="mailto:contatolumerev@gmail.com">
+                contatolumerev@gmail.com
+              </a>
+
+            </li>
+
+            <li>
+
+              <a
+                href="https://meetings.hubspot.com/contato-andressafreire"
+                target="_blank"
+                rel="noopener"
+              >
+                Diagnóstico Lume
+              </a>
+
+            </li>
+
           </ul>
+
         </div>
+
         <div class="footer-col">
-          <h5>Redes Sociais</h5>
+
+          <h5>
+            Redes Sociais
+          </h5>
+
           <ul>
-            <li><a href="https://www.linkedin.com/company/lume-rev/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://www.instagram.com/lumerev?igsh=MTlndmswdmp2NTBiMw==" target="_blank" rel="noopener">Instagram</a></li>
+
+            <li>
+
+              <a
+                href="https://www.linkedin.com/company/lume-rev/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+
+            </li>
+
+            <li>
+
+              <a
+                href="https://www.instagram.com/lumerev?igsh=MTlndmswdmp2NTBiMw=="
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
+
+            </li>
+
           </ul>
+
         </div>
+
       </div>
+
     </div>
+
     <div class="footer-bottom">
-      © 2026 Lume Rev — Todos os direitos reservados · <a href="/privacy" style="color:#ffffff;text-decoration:underline">Política de Privacidade</a>
+
+      © 2026 Lume Rev — Todos os direitos reservados ·
+
+      <a
+        href="/privacy"
+        style="color:#ffffff;text-decoration:underline"
+      >
+        Política de Privacidade
+      </a>
+
     </div>
+
   </footer>
+
+  <!-- =========================
+       INTERAÇÕES
+  ========================== -->
+
+  <script>
+
+    const header =
+      document.querySelector('header');
+
+    const toggle =
+      document.querySelector('.menu-toggle');
+
+    const nav =
+      document.querySelector('nav');
+
+
+    window.addEventListener(
+      'scroll',
+      () => {
+
+        header.classList.toggle(
+          'scrolled',
+          window.scrollY > 24
+        );
+
+      }
+    );
+
+
+    toggle?.addEventListener(
+      'click',
+      () => {
+
+        const open =
+          document.body.classList.toggle(
+            'menu-open'
+          );
+
+        toggle.setAttribute(
+          'aria-expanded',
+          String(open)
+        );
+
+      }
+    );
+
+
+    nav?.querySelectorAll('a').forEach(
+      link => {
+
+        link.addEventListener(
+          'click',
+          () => {
+
+            document.body.classList.remove(
+              'menu-open'
+            );
+
+            toggle?.setAttribute(
+              'aria-expanded',
+              'false'
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    const observer =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if(entry.isIntersecting){
+
+                entry.target.classList.add(
+                  'visible'
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold:.12
+        }
+
+      );
+
+
+    document
+      .querySelectorAll('.reveal')
+      .forEach(
+        el => observer.observe(el)
+      );
+
+  </script>
+
 </body>
 </html>
