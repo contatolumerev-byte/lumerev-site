@@ -1504,7 +1504,7 @@
        TABLET
     ========================= */
 
-    @media(max-width:1120px){
+    
 
       nav a:not(.nav-cta){
         display:none;
@@ -1556,7 +1556,95 @@
         align-self:end;
       }
     }
+/* =========================
+   TABLET / IPAD
+========================= */
 
+@media(min-width:761px) and (max-width:1180px){
+
+  .shell{
+    width:calc(100% - 40px);
+    max-width:none;
+  }
+
+  header{
+    width:calc(100% - 40px);
+  }
+
+  nav{
+    gap:14px;
+    font-size:12px;
+  }
+
+  nav a:not(.nav-cta){
+    display:none;
+  }
+
+  .hero{
+    min-height:auto;
+    padding:150px 42px 90px;
+    grid-template-columns:minmax(0,1.15fr) minmax(280px,.65fr);
+    gap:42px;
+    align-items:center;
+  }
+
+  .hero h1{
+    font-size:clamp(54px,6.2vw,76px);
+  }
+
+  .hero .lead{
+    font-size:17px;
+    max-width:680px;
+  }
+
+  .hero-side{
+    align-items:stretch;
+  }
+
+  .hero-card{
+    width:100%;
+    max-width:none;
+  }
+
+  .signal{
+    width:100%;
+  }
+
+  .vision{
+    padding-top:90px;
+  }
+
+  .vision-grid{
+    grid-template-columns:.9fr 1.1fr;
+    gap:40px;
+  }
+
+  .vision-notes{
+    min-height:540px;
+  }
+
+  .method-track{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .case-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .case-card:last-child{
+    grid-column:1 / -1;
+    min-height:360px;
+  }
+
+  .founders-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .contact-card{
+    grid-template-columns:.7fr 1.3fr;
+    gap:45px;
+  }
+}
     /* =========================
        MOBILE
     ========================= */
