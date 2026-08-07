@@ -3071,6 +3071,7 @@
        901px — 1180px
     ========================================================= */
 
+
     @media
     (min-width:901px)
     and
@@ -3543,7 +3544,34 @@
         right:-90px;
 
       }
+      
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:32px;
+  }
 
+  .footer-links{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:28px;
+  }
+
+  .footer-brand{
+    max-width:420px;
+  }
+
+  .footer-col{
+    min-width:0;
+  }
+
+  .footer-col h5,
+  .footer-col a{
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+
+  .footer-bottom{
+    margin-top:28px;
+  }
     }
 
 
