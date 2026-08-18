@@ -145,20 +145,25 @@
     }
 
     async function submitHubSpotForm(formId,fields){
+      const context={
+        pageUri:window.location.href,
+        pageName:document.title
+      };
+      const hutk=getCookie('hubspotutk');
+      if(hutk)context.hutk=hutk;
       const response=await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT.portalId}/${formId}`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          submittedAt:Date.now(),
+          submittedAt:String(Date.now()),
           fields:fields.map(field=>({objectTypeId:'0-1',...field})),
-          context:{
-            hutk:getCookie('hubspotutk'),
-            pageUri:window.location.href,
-            pageName:document.title
-          }
+          context
         })
       });
-      if(!response.ok)throw new Error(`HubSpot submission failed: ${response.status}`);
+      if(!response.ok){
+        const details=await response.text();
+        throw new Error(`HubSpot submission failed: ${response.status} ${details}`);
+      }
       return response;
     }
 
