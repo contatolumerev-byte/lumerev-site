@@ -1,0 +1,65 @@
+name: Refine Lume copy
+
+on:
+  push:
+    branches: [reposicionamento-agencia-moda]
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    if: "!contains(github.event.head_commit.message, '[skip copy]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refine service and case copy
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+
+          def service(idx, typ, title, desc, a, b):
+              nonlocal s
+              pat=rf'<article class="service-item [^"]*">\s*<div class="service-index">\s*{idx}\s*</div>.*?</article>'
+              block=f'''<article class="service-item reveal">\n\n          <div class="service-index">\n            {idx}\n          </div>\n\n          <div class="service-copy">\n\n            <p class="service-type">\n              {typ}\n            </p>\n\n            <h3>\n              {title}\n            </h3>\n\n            <p>\n              {desc}\n            </p>\n\n          </div>\n\n          <div class="service-meta">\n\n            <span>\n              {a}\n            </span>\n\n            <span>\n              {b}\n            </span>\n\n          </div>\n\n        </article>'''
+              s,n=re.subn(pat,block,s,count=1,flags=re.S)
+              assert n==1, idx
+
+          service('01','Ponto de partida','Diagnóstico Lume','Uma análise estratégica para compreender o momento da marca, seu posicionamento, comunicação, presença e caminhos de conversão — e definir o que realmente faz sentido fazer a partir daqui.','clareza','direção')
+          service('02','Carro-chefe','Social Lume','Planejamento, conteúdo, design, captação, edição e estratégia de conversão para transformar as redes sociais em uma extensão real da marca.','conteúdo','conversão')
+          service('03','Necessidades específicas','Projetos Pontuais','Projetos de branding, identidade visual, campanhas, sites, páginas e materiais de comunicação para desafios que pedem estratégia e execução especializada.','sob medida','escopo definido')
+          service('04','Continuidade','Assessoria Lume','Uma atuação próxima para direcionar o marketing, acompanhar decisões, organizar prioridades e apoiar as ações que fazem sentido para o momento da marca.','acompanhamento','evolução')
+
+          s=re.sub(r'\n        <article class="service-item reveal delay-1">\s*<div class="service-index">\s*05\s*</div>.*?</article>','',s,count=1,flags=re.S)
+
+          s=s.replace('Não organizamos departamentos isolados.\n\n        <br>\n\n        <strong>\n          Estruturamos a empresa a partir da\n          experiência completa do cliente.\n        </strong>','Marketing não é só presença.\n\n        <br>\n\n        <strong>\n          É posicionamento, experiência e estratégia\n          trabalhando juntos para converter.\n        </strong>')
+          s=s.replace('A Lume é nova.\n\n          <em>\n            O repertório por trás dela, não.\n          </em>','A Lume é nova.\n\n          <em>\n            O repertório por trás dela, não.\n          </em>')
+          s=s.replace('Nossa forma de trabalhar reúne experiências anteriores\n          das fundadoras e projetos construídos a partir de\n          diferentes desafios de posicionamento, comunicação,\n          vendas, operações e crescimento.','Nossa forma de trabalhar reúne experiências em posicionamento, branding, design, marketing, moda, comunicação, conteúdo e construção de marcas.')
+
+          def case(idx, cat, heading, desc, tags):
+              nonlocal s
+              pat=rf'(<article class="case-card [^"]* reveal(?: delay-[12])?">)(.*?)(</article>)'
+              matches=list(re.finditer(pat,s,re.S))
+              m=matches[idx-1]
+              block=m.group(1)+f'''\n\n          <div class="case-top">\n\n            <span>\n              {idx:02d}\n            </span>\n\n            <p>\n              {cat}\n            </p>\n\n          </div>\n\n          <h3>\n            {heading}\n          </h3>\n\n          <p>\n            {desc}\n          </p>\n\n          <div class="case-bottom">\n\n            <span>{tags[0]}</span>\n            <span>{tags[1]}</span>\n            <span>{tags[2]}</span>\n\n          </div>\n\n        '''+m.group(3)
+              s=s[:m.start()]+block+s[m.end():]
+
+          case(1,'Estratégia & Posicionamento','Quando a marca precisa ser percebida da forma certa.','Posicionamento e estratégia para marcas que precisam encontrar clareza sobre quem são, para quem falam e como querem ser escolhidas.',('posicionamento','branding','estratégia'))
+          case(2,'Criação, Conteúdo & Moda','Quando comunicar também é construir percepção.','Criação, captação, edição e conteúdo para transformar estratégia em presença e aproximar marcas de pessoas reais.',('conteúdo','captação','conversão'))
+          case(3,'Marketing & Conversão','Quando atenção precisa virar ação.','Estratégias e ações pensadas para aproximar percepção, comunicação e conversão — com acompanhamento para entender o que funciona e o que precisa evoluir.',('conversão','marketing','performance'))
+
+          s=s.replace('Andressa traz uma trajetória ligada a operações comerciais,\n          inteligência, processos, dados, automação e RevOps.','Andressa traz uma trajetória ligada à arte, design, ilustração digital e empreendedorismo criativo.')
+          s=s.replace('Foi da combinação desses dois olhares que surgiu a Lume:\n          uma consultoria que entende estratégia e execução como\n          partes da mesma conversa, conectando o que acontece\n          por dentro da empresa à forma como ela é percebida\n          e experimentada por quem está do lado de fora.','Foi da combinação desses dois olhares que surgiu a Lume: uma agência boutique que conecta estratégia, branding, design e marketing para transformar a percepção das marcas e criar caminhos de conversão.')
+          s=s.replace('estratégia\n        </span>\n\n        <i></i>\n\n        <span>\n          experiência\n        </span>\n\n        <i></i>\n\n        <span>\n          operação\n        </span>\n\n        <i></i>\n\n        <span>\n          crescimento','estratégia\n        </span>\n\n        <i></i>\n\n        <span>\n          branding\n        </span>\n\n        <i></i>\n\n        <span>\n          marketing\n        </span>\n\n        <i></i>\n\n        <span>\n          conversão')
+          s=s.replace('Do caos à clareza.\n            <br>\n            Da estratégia à operação.','Da clareza ao posicionamento.\n            <br>\n            Do posicionamento à conversão.')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "Lume Rev"
+          git config user.email "contatolumerev@gmail.com"
+          git add index.html
+          git commit -m "refine approved marketing copy [skip copy]" || exit 0
+          git push
