@@ -1,0 +1,88 @@
+name: Apply Lume copy-only positioning
+
+on:
+  push:
+    branches: [reposicionamento-agencia-moda]
+
+permissions:
+  contents: write
+
+jobs:
+  copy:
+    if: "!contains(github.event.head_commit.message, '[skip copy]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - name: Apply approved copy
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          r={
+          'Lume Rev — Estratégia & Estruturação de Negócios':'Lume Rev — Estratégia & Marketing para Marcas',
+          'A Lume Rev conecta posicionamento, marketing, vendas,\n          experiência, processos e dados para transformar operações\n          fragmentadas em negócios mais claros, coerentes e preparados\n          para crescer.':'A Lume Rev transforma estratégia, posicionamento e marketing em experiências de marca que conectam percepção, comunicação e conversão.',
+          'Do caos à clareza. Da estratégia à operação.':'Da clareza ao posicionamento. Do posicionamento à conversão.',
+          'Estratégia & Estruturação de Negócios':'Estratégia & Marketing',
+          'Nem sempre a estrutura cresce junto.':'Nem sempre com uma estratégia clara.',
+          'Quero conversar com a Lume':'Quero transformar minha marca',
+          'Entender a nossa visão':'Conhecer a Lume',
+          'Do caos à clareza.\n          </p>\n\n          <p>\n            Da estratégia à operação.':'Clareza para posicionar.\n          </p>\n\n          <p>\n            Estratégia para direcionar.',
+          'ESTRATÉGIA\n          </span>\n\n          <b>•</b>\n\n          <span>\n            CONEXÃO\n          </span>\n\n          <b>•</b>\n\n          <span>\n            ESTRUTURA\n          </span>\n\n          <b>•</b>\n\n          <span>\n            CRESCIMENTO':'ESTRATÉGIA\n          </span>\n\n          <b>•</b>\n\n          <span>\n            BRANDING\n          </span>\n\n          <b>•</b>\n\n          <span>\n            MARKETING\n          </span>\n\n          <b>•</b>\n\n          <span>\n            CONVERSÃO',
+          'Uma empresa é\n            <em>\n              uma experiência só.\n            </em>':'Sua empresa é\n            <em>\n              uma experiência só.\n            </em>',
+          'Por dentro, existem áreas, funções, metas e responsabilidades\n            diferentes. Por fora, o cliente não enxerga nada disso.':'O jeito que sua marca se posiciona, fala, aparece, vende e é percebida faz parte da mesma experiência.',
+          'Ele enxerga a marca que conheceu, a mensagem que recebeu,\n            a conversa que teve, a compra que fez, o atendimento que\n            encontrou e aquilo que aconteceu depois.':'Por isso, não olhamos para marketing como uma camada isolada do negócio. Olhamos para aquilo que constrói a percepção da marca — do posicionamento ao design, do conteúdo à experiência, da estratégia à conversão.',
+          'Quando essas partes deixam de conversar, surgem pequenas\n            rupturas. E nem sempre elas aparecem de forma óbvia.':'Quando essas partes não conversam, a marca perde força. E isso pode aparecer justamente onde mais importa: na conexão com o público e na conversão.',
+          'A Lume Rev nasceu de uma percepção simples:\n            negócios não deveriam ser pensados em partes quando\n            o cliente os experimenta por inteiro.':'A Lume entra para transformar clareza em posicionamento, posicionamento em experiência e experiência em crescimento.',
+          'Entre o que a empresa quer ser e o que comunica.':'Entre o que a marca quer transmitir e o que o público percebe.',
+          'Entre o que promete e o que entrega.':'Entre o posicionamento e a experiência que ele cria.',
+          'Entre quem atrai e quem vende.':'Entre atenção e conversão.',
+          'Entre o que acontece na operação e aquilo\n              que chega à tomada de decisão.':'Entre estratégia, comunicação e a ação que queremos provocar.',
+          'Não para tornar empresas mais complexas.':'Não para fazer marketing por fazer.',
+          'Mas para trazer clareza à complexidade\n            que o crescimento naturalmente criou.':'Mas para transformar posicionamento e percepção\n            em marcas mais fortes e capazes de converter.',
+          'Uma forma de transformar\n          <em>\n            clareza em movimento.\n          </em>':'Uma forma de transformar\n          <em>\n            clareza em posicionamento e ação.\n          </em>',
+          'O Método LUME organiza a nossa maneira de compreender\n          e estruturar negócios sem partir de soluções prontas.':'O Método LUME é nosso método proprietário para compreender a marca, direcionar o marketing e transformar estratégia em ação — sem partir de soluções prontas.',
+          'Antes de transformar, é preciso enxergar.\n              Tornamos mais claro o contexto, as relações,\n              tensões e oportunidades do negócio.':'Antes de começar a tocar na marca, precisamos enxergar. Tornamos mais claro o contexto, as relações, a percepção e o momento do negócio.',
+          'Conectamos aquilo que precisa funcionar como uma\n              única experiência, aproximando estratégia,\n              marca, cliente e operação.':'Conectamos aquilo que precisa funcionar como uma única experiência, aproximando marca, estratégia, comunicação e conversão.',
+          'Clareza ganha forma. Estratégia começa a existir\n              nas decisões, experiências, processos e na maneira\n              como a empresa opera.':'Fazemos a estratégia ganhar forma nas decisões, no design, no conteúdo, nas experiências e nas ações de marketing que colocam a marca em movimento.',
+          'Acompanhamos o encontro entre estratégia e realidade\n              para que a estrutura continue aprendendo e evoluindo\n              junto com o negócio.':'Aprendemos com o que acontece na prática, identificando novas frentes e ajustes para que o marketing evolua junto com o negócio.',
+          'Sua empresa cresceu.':'Sua marca está crescendo.',
+          'E a estrutura acompanhou?':'Mas o marketing está acompanhando?',
+          'Quero olhar para o meu negócio':'Quero olhar para minha marca',
+          'Nem toda empresa precisa de tudo.':'Nem toda marca precisa de tudo.',
+          'A Lume trabalha por etapas e necessidades.\n          Algumas empresas precisam organizar uma frente específica.\n          Outras precisam conectar diferentes pontos da operação.\n          E algumas já estruturaram a base e querem acompanhamento.':'A Lume atua como uma agência boutique: estratégia, branding, design e marketing conectados ao momento real da marca. Algumas empresas precisam de uma frente específica. Outras precisam de acompanhamento próximo para transformar estratégia em presença e conversão.',
+          'Estruturação Lume':'Social Lume',
+          'Social Lume':'Projetos Pontuais',
+          'Projetos Pontuais':'Assessoria Lume',
+          'Assessoria Lume':'Assessoria Lume',
+          'Experiência em movimento':'Marcas em movimento',
+          'Dados & Inteligência Operacional':'Marketing & Conversão',
+          'Estruturação Comercial & RevOps':'Estratégia & Posicionamento',
+          'Quando crescer exige mais\n            do que aumentar atividade.':'Quando a marca precisa ser percebida\n            da forma certa.',
+          'Marca, Moda & Comunicação':'Criação, Conteúdo & Moda',
+          'Dados & Inteligência Operacional':'Marketing & Conversão',
+          'Duas perspectivas.':'Duas perspectivas.',
+          'Uma forma integrada de enxergar negócios.':'Uma forma integrada de construir marcas.',
+          'Co-founder · Estratégia & Operações':'Co-founder · Estratégia & Design',
+          'Atua na leitura do negócio, desenho da operação,\n              inteligência comercial, processos, indicadores,\n              automação e conexão entre estratégia e execução.':'Atua no posicionamento do negócio, branding e design, traduzindo estratégia em identidade, direção visual e experiências que comunicam com clareza.',
+          'clareza para decidir':'estratégia para dar direção. design para dar forma.',
+          'Atua na construção da narrativa, posicionamento,\n              direção criativa, experiência de marca e tradução\n              da estratégia em comunicação com intenção.':'Atua na captação, edição, criação e ações de marketing, com foco em aproximar a marca das pessoas e transformar atenção em conexão e conversão.',
+          'intenção para comunicar':'criação para conectar. ação para converter.',
+          'Talvez o problema não esteja\n\n            <em>\n              onde parece estar.\n            </em>':'Talvez a falta de conversão não esteja\n\n            <em>\n              onde você imagina.\n            </em>',
+          'Se o seu negócio cresceu, mas alguma coisa entre\n            estratégia e operação deixou de acompanhar esse\n            movimento, podemos começar por uma conversa.':'Se a sua marca está crescendo, mas o marketing não parece acompanhar, podemos começar por uma conversa e entender onde está o ponto de atrito.',
+          'Sem solução pronta.\n            Sem pacote escolhido antes de entender o problema.':'Sem fórmula pronta.\n            Sem pacote escolhido antes de entender a marca.',
+          'Vamos primeiro olhar para o negócio.':'Vamos primeiro olhar para o marketing.',
+          }
+          for a,b in r.items(): s=s.replace(a,b)
+          # Replace method summary while keeping the existing L/U/M/E structure.
+          s=s.replace('Lumiar para enxergar.','Lumiar para enxergar.').replace('Unificar para conectar.','Unificar para conectar.').replace('Materializar para acontecer.','Materializar para acontecer.').replace('Evoluir para continuar.','Evoluir para continuar.')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "Lume Rev"
+          git config user.email "contatolumerev@gmail.com"
+          git add index.html
+          git commit -m "apply approved marketing copy [skip copy]" || exit 0
+          git push
